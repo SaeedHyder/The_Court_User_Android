@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollIndicators="none"
+        android:scrollbars="none"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/txt_term_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x15"
+            android:layout_marginEnd="@dimen/x15"
+            android:layout_marginStart="@dimen/x15"
+            android:layout_marginTop="@dimen/x15"
+            android:alpha="0.6"
+            android:gravity="start|end"
+
+            android:scrollbarFadeDuration="1"
+            android:scrollbars="vertical"
+            tools:text="@string/lorem_ipsum"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+
+        <Button
+            android:id="@+id/btn_i_agree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x30"
+            android:layout_marginStart="@dimen/x30"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_marginBottom="@dimen/x10"
+            android:background="@drawable/rounded_button"
+            android:text="@string/i_agree"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x18" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>

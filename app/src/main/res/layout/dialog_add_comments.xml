@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/roundshapelayout"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/textLayout"
+        android:layout_width="@dimen/x280"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/x10"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.app.court.ui.views.AnyTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/x15"
+            android:layout_marginBottom="@dimen/x15"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:text="Write your comments"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:typeface="Roboto-Regular.ttf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:layout_marginEnd="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_marginBottom="@dimen/x10"
+            android:background="@drawable/rectangle">
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_write_heres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:hint="@string/write_here"
+                android:imeOptions="actionNext"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:maxLength="110"
+                android:maxLines="4"
+                android:paddingBottom="@dimen/x5"
+                android:paddingEnd="@dimen/x5"
+                android:paddingStart="@dimen/x5"
+                android:paddingTop="@dimen/x5"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="nocheck"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/textLayout"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_submit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v2"
+            android:layout_marginTop="@dimen/x15"
+            android:layout_marginBottom="@dimen/x15"
+            android:layout_marginStart="@dimen/x30"
+            android:layout_marginEnd="@dimen/x30"
+            android:textSize="@dimen/x18"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:background="@drawable/rounded_button"
+            android:text="@string/post_comment"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

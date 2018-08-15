@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/mainFrame"
+    android:layout_height="match_parent"
+    android:onClick="onClick"
+    android:orientation="vertical">
+
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/txt_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/no_due_payment_found"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/x15"
+        android:visibility="gone"
+        app:typeface="Roboto-Regular.ttf"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/x20"
+        android:background="@drawable/searchbar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.app.court.ui.views.AnyEditTextView
+            android:id="@+id/edt_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.85"
+            android:background="@color/transparent"
+            android:gravity="center_vertical"
+            android:hint="@string/search"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingStart="@dimen/x10"
+            android:textColor="@color/light_grey"
+            android:textColorHint="@color/light_grey"
+            android:textSize="@dimen/x14"
+            app:testType="nocheck"
+            app:typeface="@string/font_normal" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/x15"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:src="@drawable/search" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/lv_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:scrollbars="none" />
+
+</LinearLayout>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    android:onClick="onClick"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_margin="@dimen/x15"
+            android:background="@drawable/backbtn"
+            android:padding="@dimen/x20" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_marginLeft="@dimen/x60"
+                android:layout_marginRight="@dimen/x60"
+                android:background="@color/transparent"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="@dimen/x10"
+                android:gravity="center_vertical"
+                android:hint="@string/full_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="personFullName"
+                app:typeface="@string/font_normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"
+                android:layout_marginBottom="@dimen/x10"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_marginStart="@dimen/x85"
+                android:alpha="0.3"
+                android:background="@color/light_grey" />
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_marginLeft="@dimen/x60"
+                android:layout_marginRight="@dimen/x60"
+                android:layout_marginTop="@dimen/x15"
+                android:background="@color/transparent"
+                android:drawableLeft="@drawable/email"
+                android:drawablePadding="@dimen/x15"
+                android:gravity="center_vertical"
+                android:hint="@string/email_address"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="email"
+                app:typeface="@string/font_normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"
+                android:layout_marginBottom="@dimen/x10"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_marginStart="@dimen/x85"
+                android:alpha="0.3"
+                android:background="@color/light_grey" />
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x60"
+                android:layout_marginRight="@dimen/x60"
+                android:layout_marginTop="@dimen/x15"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/phone"
+                android:drawablePadding="@dimen/x15"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="Phone Number"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="20"
+                android:scrollHorizontally="true"
+                android:scrollbars="horizontal"
+                android:singleLine="true"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="phone"
+                app:typeface="@string/font_normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"
+                android:layout_marginBottom="@dimen/x10"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_marginStart="@dimen/x85"
+                android:alpha="0.3"
+                android:background="@color/light_grey" />
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_marginLeft="@dimen/x60"
+                android:layout_marginRight="@dimen/x60"
+                android:layout_marginTop="@dimen/x15"
+                android:background="@color/transparent"
+                android:drawableLeft="@drawable/pass"
+                android:drawablePadding="@dimen/x15"
+                android:gravity="center_vertical"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLength="35"
+                android:maxLines="1"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="alphaNumeric"
+                app:typeface="@string/font_normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_marginStart="@dimen/x85"
+                android:alpha="0.3"
+                android:background="@color/light_grey" />
+
+            <com.app.court.ui.views.AnyEditTextView
+                android:id="@+id/edt_cfm_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_marginLeft="@dimen/x60"
+                android:layout_marginRight="@dimen/x60"
+                android:layout_marginTop="@dimen/x20"
+                android:background="@color/transparent"
+                android:drawableLeft="@drawable/pass"
+                android:drawablePadding="@dimen/x15"
+                android:gravity="center_vertical"
+                android:hint="@string/cfm_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="35"
+                android:maxLines="1"
+                android:textColor="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/x14"
+                app:testType="alphaNumeric"
+                app:typeface="@string/font_normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_marginStart="@dimen/x85"
+                android:alpha="0.3"
+                android:background="@color/light_grey" />
+
+            <Button
+                android:id="@+id/btn_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/x20"
+                android:layout_marginEnd="@dimen/x30"
+                android:layout_marginStart="@dimen/x30"
+                android:layout_marginTop="@dimen/x30"
+                android:background="@drawable/rounded_button"
+                android:text="@string/signup_now"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x18" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/x5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.app.court.ui.views.AnyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x2"
+                    android:text="@string/already_registered"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/x14"
+                    app:typeface="@string/font_normal" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_signin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x2"
+                    android:text="@string/signin_now"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/x14"
+                    app:typeface="@string/font_bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

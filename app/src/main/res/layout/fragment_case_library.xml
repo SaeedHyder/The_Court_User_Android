@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainFrame"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:onClick="onClick"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_upper_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/x10"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/top_baar"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_description"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/x40"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/description2" />
+
+
+                <ImageView
+                    android:id="@+id/iv_messages"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/x40"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/messages" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3">
+
+                    <LinearLayout
+                        android:id="@+id/ll_library"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/x20"
+                        android:layout_marginStart="@dimen/x20"
+                        android:background="@drawable/box"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/x40"
+                            android:layout_gravity="center"
+                            android:src="@drawable/library2" />
+
+                        <com.app.court.ui.views.AnyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/library"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/x12"
+                            app:typeface="@string/font_normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/x20"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_marginBottom="@dimen/x10"
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x120"
+                android:elevation="@dimen/x10"
+                app:cardCornerRadius="@dimen/x8">
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x120"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/thumbnail" />
+
+                <!--                <com.jcmore2.collage.CollageView
+                                    android:id="@+id/iv_collage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="@dimen/x10"/>-->
+
+            </android.support.v7.widget.CardView>
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="All Photos"
+                android:textColor="#8D8D8D"
+                android:textSize="@dimen/x12"
+                app:typeface="@string/font_normal"
+                android:layout_marginTop="@dimen/x5"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x120"
+                android:elevation="@dimen/x10"
+                app:cardCornerRadius="@dimen/x8">
+
+                <ImageView
+                    android:id="@+id/iv_videos"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x120"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/video_placeholder" />
+
+            </android.support.v7.widget.CardView>
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_videos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="All Videos"
+                android:textColor="#8D8D8D"
+                android:textSize="@dimen/x12"
+                android:layout_marginTop="@dimen/x5"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x120"
+                android:elevation="@dimen/x10"
+                app:cardCornerRadius="@dimen/x8">
+
+                <ImageView
+                    android:id="@+id/iv_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x120"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pdf_image" />
+
+            </android.support.v7.widget.CardView>
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_docs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="All Documents"
+                android:textColor="#8D8D8D"
+                android:textSize="@dimen/x12"
+                android:layout_marginTop="@dimen/x5"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/txt_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="No Data"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/x15"
+        android:visibility="gone"
+        app:typeface="Roboto-Regular.ttf" />
+
+    <ListView
+        android:id="@+id/lv_library"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_marginStart="@dimen/x10"
+        android:divider="@null"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+</LinearLayout>

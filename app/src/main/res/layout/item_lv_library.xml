@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="onClick"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x5"
+        android:layout_marginStart="@dimen/x5"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/x70"
+            android:layout_height="@dimen/x75"
+            android:elevation="@dimen/x10"
+            app:cardCornerRadius="@dimen/x8">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x75"
+                android:scaleType="fitXY"
+                android:src="@drawable/thumbnail" />
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/x15">
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Whiteney Case"
+                android:textColor="@color/black"
+                android:textSize="@dimen/x15"
+                app:typeface="@string/font_bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/x10"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/imageicon"
+                    android:drawablePadding="@dimen/x5"
+                    android:text="256"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/x10"
+                    app:typeface="@string/font_bold"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"/>
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_marginStart="@dimen/x10"
+                    android:drawableLeft="@drawable/icon"
+                    android:drawablePadding="@dimen/x5"
+                    android:text="256"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/x10"
+                    app:typeface="@string/font_bold" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_documents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/docs"
+                    android:drawablePadding="@dimen/x5"
+                    android:text="256"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/x10"
+                    app:typeface="@string/font_bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:alpha="0.5"
+        android:background="@color/grey"
+        android:layout_marginTop="@dimen/x10"
+        android:layout_marginBottom="@dimen/x25"/>
+
+</LinearLayout>

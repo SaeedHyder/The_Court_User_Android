@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:onClick="onClick"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x5"
+        android:layout_marginStart="@dimen/x5"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/x70"
+            android:layout_height="@dimen/x75"
+            android:elevation="@dimen/x10"
+            app:cardCornerRadius="@dimen/x8">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x75"
+                android:scaleType="fitXY"
+                tools:src="@drawable/lawyer"
+                android:focusable="false"/>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/x10"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                tools:text="Brandon Kelly"
+                android:textColor="@color/black"
+                android:layout_weight="0.6"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal"
+                android:layout_gravity="start|center_vertical" />
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                tools:text="Field Breach of Contract"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal"
+                android:layout_gravity="start|center_vertical" />
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_profession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:maxLines="1"
+                tools:text="Profession Lawyer"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal"
+                android:layout_gravity="start|center_vertical" />
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:maxLines="1"
+                tools:text="Experience 0 Years"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal"
+                android:layout_gravity="start|center_vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_marginBottom="@dimen/x15"
+        android:layout_marginTop="@dimen/x15"
+        android:alpha="0.2"
+        android:background="@color/light_grey" />
+
+</LinearLayout>

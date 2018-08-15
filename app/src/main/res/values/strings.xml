@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- mark favourite message -->
+    <string name="successful">Successfully marked as favourites</string>
+
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <string name="api_key">AIzaSyCpGgz9RFPA_k-MG3trof3lNGVvzdtqmMQ</string>
+    <string name="app_name">The Court</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">674632155971845</string>
+    <string name="facebook_app_id_test">175703936145004</string>
+
+    <!-- Error Messages -->
+    <string name="error_passwords_do_not_match">Passwords do not match.</string>
+    <string name="error_could_not_connect">Could not connect to server. Please try again later.</string>
+    <string name="error_cannot_create_account">Account already exists!</string>
+    <string name="error_cannot_sign_in">Please provide correct Email and Password</string>
+    <string name="crash_toast_text">Sorry for inconvenience, we will get this issue fixed!</string>
+    <string name="msg_connection_failed">Error! Connection to server failed.</string>
+    <string name="msg_connection_error">Please check your internet connection</string>
+
+    <!-- Date Time -->
+    <string name="common.months">months</string>
+    <string name="common.weeks">weeks</string>
+    <string name="common.days">days</string>
+    <string name="common.hrs">hrs</string>
+    <string name="common.mins">mins</string>
+    <string name="common.secs">secs</string>
+    <string name="common.ago">ago</string>
+
+    <!-- AnyTextView -->
+    <string name="typeface_not_found">Typeface %$1 not found, or could not be loaded.
+        Showing default typeface.</string>
+    <string name="app">AnyTextView</string>
+    <string name="assets_fonts_folder">fonts/</string>
+    <string name="txt_enter_phone_no">Enter Phone No.</string>
+    <string name="txt_register_text">Verificaion process is required to verify the phone no.</string>
+    <string name="message_quit">Are you sure you want to exit?</string>
+    <string name="message_wait">Please wait while data is loading.</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="click_here">  Click Here</string>
+    <string name="imgdesc_signup">Sign Up</string>
+    <string name="imgdesc_signin">Sign In</string>
+    <string name="back_to_login"><u>Back to Login</u></string>
+    <string name="remember_me">remember me</string>
+    <string name="login">Login</string>
+    <string name="user_name">User Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="categories">Categories</string>
+    <string name="search_hint">Search Ads, User or Category</string>
+    <string name="password_sent">Your password will be sent to your \nemail address</string>
+    <string name="change_password">Change Password</string>
+    <string name="reason_for_rejection">REASON</string>
+    <string name="old_password">Old Password</string>
+    <string name="via_email">Via Email</string>
+    <string name="via_sms">Via SMS</string>
+    <string name="tell_a_friend">TELL A FRIEND</string>
+    <string name="contact_email">contact@voltas.com</string>
+    <string name="contact_phone">5555 555 555</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="you_paid">YOU PAID</string>
+    <string name="tap_to_rate">TAP A STAR TO RATE DRIVER</string>
+    <string name="contact_address">Columbus College of Arts, New York</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and types
+        etting industry. Lorem Ipsum has been the industrys standard dummy text ever sinc
+        e the 1500s, when an unknown printer took a galley of type and scrambled it t
+        o make a type specimen book. It has survived not only five centuries, but
+         also the leap into electronic typesetting, remaining essentially unchanged
+         . It was popularised in the 1960s with the release of Letraset sheets cont
+         aining Lorem Ipsum passages, and more recently with desktop publishing so
+         ftware like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="lorem_ipsum_small">Lorem Ipsum is simply dummy text of the printing and types
+        etting industry. </string>
+    <string name="this_is_login_fragment">This is Login Fragment</string>
+    <string name="default_hint_text">Where are you going?</string>
+    <string name="connection_lost">No Internet Found</string>
+
+    <!--FONTS-->
+    <string name="font_normal">Poppins-Regular_1.ttf</string>
+    <string name="font_bold">Poppins-Bold_1.ttf</string>
+    <string name="font_italic_bold">Roboto-Italic_2.ttf</string>
+    <string name="font_italic_light">Roboto-LightItalic_2.ttf</string>
+    <string name="font_handwriting">segoeprb_1.ttf</string>
+    <string name="notification">Notifications</string>
+    <string name="my_case">My Case</string>
+    <string name="find_laywer">Find Laywer</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_messages">My Messages</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="done">Done</string>
+    <string name="enter_FullName">Name cannot be Empty</string>
+    <string name="enter_email">Email Address is not valid</string>
+    <string name="enter_MobileNum">Mobile number cannot be Empty</string>
+    <string name="enter_address">Address cannot be Empty</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="terms_condition">Terms &amp; Conditions</string>
+    <string name="logout">Logout</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="i_agree">I Agree</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="current_password">Current Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="enter_password">Password Field cannot be Empty</string>
+    <string name="enter_confirm_password">Confirm Password Field cannot be Empty</string>
+    <string name="passwordLength">Password cannot be less than 6 characters</string>
+    <string name="confirmpasswordLength">Confirm Password cannot be less than 6 characters</string>
+    <string name="samePassword">New password should be changed from previous password</string>
+    <string name="conform_password_error">confirm password does not match</string>
+
+    <!--login-->
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="signup">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="full_name">Full Name</string>
+    <string name="cfm_password">Confirm Password</string>
+    <string name="already_registered">Already Registered?</string>
+    <string name="signin_now">Signin Now</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="forgot_passwords">Forgot Password</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="didn_t_get_a_code_yet">Didn\'t get a code yet?</string>
+    <string name="submit">SUBMIT</string>
+    <string name="enter_4_digit_code_here">Enter 4 digit code here.</string>
+    <string name="enter_your_email_address_and_we_ll_send_you_a_code_to_reset_your_password">Enter your email address and we\'ll send you a code to reset your password.</string>
+    <string name="email">Email</string>
+    <string name="in_beta">Will be implemented in beta</string>
+    <string name="signup_now">Signup now</string>
+    <string name="messages">Messages</string>
+    <string name="case_comments">Case Comments</string>
+    <string name="add_comments">ADD COMMENTS</string>
+    <string name="mark_as_complete">Mark As Complete</string>
+    <string name="payment">Payment</string>
+    <string name="case_description">Case Description:</string>
+    <string name="subject">Subject:</string>
+    <string name="subjects">Subject</string>
+    <string name="try_again">Try Again Later</string>
+    <string name="no_location_found">No Location Found</string>
+    <string name="Search_Location">Search Location</string>
+    <string name="Unable_location">Unable to get location</string>
+    <string name="Use_This_Location">Use This Location</string>
+    <string name="Loading_Location">Loading Location ...</string>
+    <string name="lawyer_name">Lawyer Name:</string>
+    <string name="write_a_message_here">Write your message here...</string>
+    <string name="library">Library</string>
+    <string name="lawyers">Lawyers</string>
+    <string name="search">Search</string>
+    <string name="lawyers_profile">Lawyers Profile</string>
+    <string name="lawyer_profile">Lawyer Profile</string>
+    <string name="submit_case">submit case</string>
+    <string name="subject_of_case">Subject of Case</string>
+    <string name="description">Description</string>
+    <string name="write_here">Write here...</string>
+    <string name="attachment">Attachment</string>
+    <string name="attached_file">Attached File</string>
+    <string name="due_payments">Due Payments</string>
+    <string name="payment_history">Payment History</string>
+    <string name="select_specialization">Select Specialization</string>
+    <string name="select_affiliation">Select Affiliation</string>
+    <string name="rating">Rating</string>
+    <string name="select_language">Select Language</string>
+    <string name="select_location">Select Location</string>
+    <string name="filter">Filter</string>
+    <string name="password_length_alert">Password should be 6 or more characters long.</string>
+    <string name="phone_length_alert">Phone number should be of more than 4 characters long.</string>
+    <string name="password_not_match">Password and confirm password does not match.</string>
+    <string name="msg_alert">Message should contains at-least more than 4 characters.</string>
+    <string name="photos">Photos</string>
+    <string name="enter_code">Please enter complete code to proceed.</string>
+    <string name="new_code">A new code has been sent to your email address.</string>
+    <string name="enter_verification">Enter Verification Code</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="submit_cases">Submit Case</string>
+    <string name="accept_case">accept case</string>
+    <string name="post_comment">Post Comment</string>
+    <string name="pass_reset">Password reset successfully.</string>
+    <string name="pass_changed">Password changed successfully.</string>
+    <string name="upload_doc">Please upload document of case.</string>
+    <string name="failure_response">Something went wrong. Please try again.</string>
+    <string name="no_records_found">No records found!</string>
+    <string name="drive">Google Drive</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="video">Video</string>
+    <string name="upload_file">Upload File</string>
+    <string name="permission_location_rationale">Location permission required</string>
+    <string name="permission_location_denied">Please access Location permission to complete process</string>
+    <string name="permission_location_neverask">Please access Location permission to complete process</string>
+
+    <string name="permission_storage_rationale">Please enable storage permission to complete process</string>
+    <string name="permission_storage_denied">Please access Storage permission to complete process</string>
+    <string name="permission_storage_neverask">Please access Storage permission to complete process</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
+    <string name="no_data_to_show">No data to show</string>
+    <string name="no_lawyer_found">No Lawyer Found</string>
+    <string name="no_case_found">No Case Found</string>
+    <string name="case_marked_complete">Case marked as completed.</string>
+    <string name="write_your_msg">Write your message</string>
+    <string name="inqueue">In-Queue</string>
+    <string name="active">Active</string>
+    <string name="inactive">In-Active</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="completed">Completed</string>
+    <string name="acknowledge">Acknowledge</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="confirm_acknowledgement">Confirm acknowledgement.</string>
+    <string name="marked_as_completed">Case marked as completed.</string>
+    <string name="no_due_payment_found">No due payment found</string>
+    <string name="no_payment_history_found">No payment history found</string>
+    <string name="me">Me</string>
+    <string name="no_message_thread_found">No message thread found</string>
+
+</resources>

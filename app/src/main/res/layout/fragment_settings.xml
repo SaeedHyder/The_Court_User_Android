@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/btn_changePassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:text="@string/change_password"
+        android:textColor="@color/app_dark_gray"
+        android:drawableEnd="@drawable/rightarrow"
+        android:paddingEnd="@dimen/x15"
+        android:textSize="@dimen/x15"
+        app:typeface="@string/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/x15"
+        android:visibility="visible">
+
+    <com.app.court.ui.views.AnyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:text="Language"
+        android:textColor="@color/app_dark_gray"
+        android:textSize="@dimen/x15"
+        app:typeface="@string/font_normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/btn_english"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/english"
+                android:textSize="@dimen/x13"
+                android:layout_marginEnd="@dimen/x5"
+                android:textColor="@color/app_orange"
+                app:typeface="@string/font_normal"
+                />
+
+            <View
+                android:layout_width="@dimen/x1"
+                android:layout_height="@dimen/x20"
+                android:layout_gravity="center_vertical"
+                android:background="@color/view_color"/>
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/btn_Arabic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/arabic"
+                android:textSize="@dimen/x13"
+                android:layout_marginStart="@dimen/x5"
+                android:textColor="@color/app_dark_gray"
+                app:typeface="@string/font_normal"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <com.app.court.ui.views.AnyTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/x60"
+            android:layout_weight="0.9"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/x15"
+            android:text="Notifications"
+            android:textColor="@color/app_dark_gray"
+            android:textSize="@dimen/x15"
+            app:typeface="@string/font_normal" />
+
+
+        <ToggleButton
+            android:id="@+id/toggleNotification"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x25"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
+            android:background="@drawable/selector_toggle"
+            android:checked="true"
+            android:text=""
+            android:textOff=""
+            android:textOn=""/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/btn_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:text="@string/about"
+        android:textColor="@color/app_dark_gray"
+        android:drawableEnd="@drawable/rightarrow"
+        android:paddingEnd="@dimen/x15"
+        android:textSize="@dimen/x15"
+        app:typeface="@string/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/btn_terms_condition"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:text="@string/terms_condition"
+        android:textColor="@color/app_dark_gray"
+        android:drawableEnd="@drawable/rightarrow"
+        android:paddingEnd="@dimen/x15"
+        android:textSize="@dimen/x15"
+        app:typeface="@string/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:text="@string/logout"
+        android:textColor="@color/app_dark_gray"
+        android:drawableEnd="@drawable/rightarrow"
+        android:paddingEnd="@dimen/x15"
+        android:textSize="@dimen/x15"
+        app:typeface="@string/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_color" />
+
+</LinearLayout>

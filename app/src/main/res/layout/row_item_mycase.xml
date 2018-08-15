@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/mainFrame"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/x7"
+        android:paddingStart="@dimen/x7"
+        android:paddingTop="@dimen/x5">
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:maxLines="1"
+            tools:text="White Case"
+            android:textColor="@color/app_dark_gray"
+            android:textSize="@dimen/x13"
+            app:typeface="@string/font_normal" />
+
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:gravity="center"
+            tools:text="12:30 pm | 12 sep 2018"
+            android:textColor="@color/app_dark_gray"
+            android:textSize="@dimen/x10"
+            app:typeface="@string/font_normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/x7"
+        android:paddingStart="@dimen/x7"
+        android:paddingTop="@dimen/x5">
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_laywer_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:maxLines="1"
+            tools:text="Lawyer: Philipe Gibson"
+            android:textColor="#4F4F4F"
+            android:textSize="@dimen/x11"
+            app:typeface="@string/font_normal" />
+
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_messages"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:gravity="center"
+            tools:text="Messages : 07"
+            android:textColor="@color/app_dark_gray"
+            android:textSize="@dimen/x10"
+            app:typeface="@string/font_normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/x7"
+        android:paddingStart="@dimen/x7"
+        android:paddingTop="@dimen/x5">
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:maxLines="1"
+            tools:text="Caese to solve property snatching case"
+            android:textColor="@color/app_dark_gray"
+            android:textSize="@dimen/x11"
+            app:typeface="@string/font_normal" />
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:text="In Queue"
+            android:textColor="@color/app_orange"
+            android:textSize="@dimen/x10"
+            app:typeface="@string/font_normal" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="@dimen/x3"
+        android:layout_marginTop="@dimen/x6"
+        android:alpha="0.5"
+        android:background="@color/grey" />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_rv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/x90"
+            android:layout_height="@dimen/x90"
+            android:layout_margin="@dimen/x10"
+            app:cardCornerRadius="@dimen/x8">
+
+            <ImageView
+                android:id="@+id/iv_gv_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+        </android.support.v7.widget.CardView>
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/txt_name"
+            android:layout_width="@dimen/x120"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center"
+            android:gravity="center_vertical|center"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/x12"
+            android:visibility="visible"
+            app:typeface="Roboto-Regular.ttf" />
+
+    </LinearLayout>
+</LinearLayout>

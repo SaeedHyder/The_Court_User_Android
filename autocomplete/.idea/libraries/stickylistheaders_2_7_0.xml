@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="stickylistheaders-2.7.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/dde452e965dd2f01960bd4269b9cd8f157f87761/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/dde452e965dd2f01960bd4269b9cd8f157f87761/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/se.emilsjolander/stickylistheaders/2.7.0/604d758742ab733668809c01e1dc27186db1f60a/stickylistheaders-2.7.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

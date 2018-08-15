@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x5"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/x8"
+            android:layout_marginTop="@dimen/x10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/x70"
+                    android:layout_height="@dimen/x70"
+                    android:src="@drawable/app_icons"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/x5">
+
+                    <com.app.court.ui.views.AnyTextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/x15"
+                        tools:text="title"
+                        app:typeface="@string/font_normal"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"/>
+
+                    <com.app.court.ui.views.AnyTextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_grey"
+                        android:textSize="@dimen/x13"
+                        tools:text="@string/lorem_ipsum_small"
+                        app:typeface="@string/font_normal"
+                        android:alpha="0.6"
+                        android:maxLines="3"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:gravity="end">
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_grey"
+                    android:drawablePadding="@dimen/x5"
+                    android:textSize="@dimen/x11"
+                    tools:text="2 Mar 2018"
+                    app:typeface="@string/font_normal"
+                    android:layout_marginRight="@dimen/x5"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
+
+                <com.app.court.ui.views.AnyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/x12"
+                    android:text="|"
+                    app:typeface="@string/font_normal"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_grey"
+                    android:drawablePadding="@dimen/x5"
+                    tools:text="03:00 pm"
+                    android:textSize="@dimen/x11"
+                    app:typeface="@string/font_normal"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/light_grey"
+        android:alpha="0.1"/>
+
+</LinearLayout>

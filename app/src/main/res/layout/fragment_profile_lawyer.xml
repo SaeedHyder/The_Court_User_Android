@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:onClick="onClick"
+    android:scrollbars="none"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x180"
+                android:background="@drawable/headerimage" />
+
+            <LinearLayout
+                android:id="@+id/ll_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginEnd="@dimen/x10"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/x10"
+                    android:src="@drawable/backbtn"
+                    android:layout_gravity="start"/>
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center"
+                    android:gravity="center"
+                    android:text="@string/lawyer_profile"
+                    android:layout_marginEnd="@dimen/x25"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x18"
+                    app:typeface="OpenSans-Regular.ttf" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x110"
+                android:background="@drawable/shapebox"
+                android:orientation="vertical">
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_lawyer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x100"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:maxLines="1"
+                    tools:text="John Glen"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/x20"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_specialization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x20"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    tools:text="Specialization:"
+                    android:layout_below="@+id/tv_lawyer_name"
+                    android:gravity="start|center_vertical"
+                    android:textColor="#000"
+                    android:drawableLeft="@drawable/specilization"
+                    android:drawablePadding="@dimen/x10"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_experience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:maxLines="1"
+                    tools:text="Experience:"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:drawableLeft="@drawable/experience"
+                    android:layout_below="@+id/tv_specialization"
+                    android:drawablePadding="@dimen/x10"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <View
+                    android:id="@+id/v1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:layout_margin="@dimen/x30"
+                    android:layout_below="@+id/tv_experience"
+                    android:alpha="0.2"
+                    android:background="@color/light_grey" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_acedamic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:maxLines="1"
+                    tools:text="Academic:"
+                    android:gravity="center"
+                    android:textColor="#858992"
+                    android:drawableLeft="@drawable/academic"
+                    android:layout_below="@+id/v1"
+                    android:drawablePadding="@dimen/x10"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_affiliation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:maxLines="1"
+                    tools:text="Affiliation:"
+                    android:gravity="center"
+                    android:textColor="#858992"
+                    android:drawableLeft="@drawable/academic"
+                    android:layout_below="@+id/tv_acedamic"
+                    android:drawablePadding="@dimen/x10"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:id="@+id/tv_languages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:maxLines="1"
+                    tools:text="Languages:"
+                    android:gravity="center"
+                    android:textColor="#858992"
+                    android:drawableLeft="@drawable/languages"
+                    android:layout_below="@+id/tv_affiliation"
+                    android:drawablePadding="@dimen/x10"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal"
+                    android:layout_gravity="start|center_vertical" />
+
+                <View
+                    android:id="@+id/v2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:layout_margin="@dimen/x30"
+                    android:layout_below="@+id/tv_languages"
+                    android:alpha="0.2"
+                    android:background="@color/light_grey" />
+
+                <Button
+                    android:id="@+id/btn_submit_case"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v2"
+                    android:layout_marginStart="@dimen/x30"
+                    android:layout_marginEnd="@dimen/x30"
+                    android:layout_marginBottom="@dimen/x30"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_button"
+                    android:text="@string/submit_cases"
+                    android:textSize="@dimen/x18"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x58">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/x135"
+                android:layout_height="@dimen/x135"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.2"
+                android:src="@drawable/white_circle" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_lawyer"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_width="@dimen/x130"
+                android:layout_height="@dimen/x130"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/lawyer" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="badger-0.2.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/cfaa97a0fe59474296848e4314d5891ac0c807c7/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/cfaa97a0fe59474296848e4314d5891ac0c807c7/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/berlin.volders/badger/0.2.1/646660c0c14fac35b54e77d1f0a99c1e553ccee4/badger-0.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

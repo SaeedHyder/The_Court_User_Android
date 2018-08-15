@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:onClick="onClick"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/x10"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x80"
+                android:background="@drawable/top_baar"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+                        <LinearLayout
+                            android:id="@+id/ll_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/x20"
+                            android:layout_marginStart="@dimen/x20"
+                            android:background="@drawable/box"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/x40"
+                                android:layout_gravity="center"
+                                android:src="@drawable/description" />
+
+                            <com.app.court.ui.views.AnyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/description"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/x12"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                app:typeface="@string/font_normal" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_messages"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/messages" />
+
+                    <ImageView
+                        android:id="@+id/iv_library"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/library" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/x7"
+            android:paddingStart="@dimen/x7"
+            android:paddingTop="@dimen/x5">
+
+            <com.app.court.ui.views.AnyTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:maxLines="1"
+                android:text="@string/lawyer_name"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_lawyer_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:alpha="0.6"
+                android:maxLines="1"
+                tools:text="Philipe Gibson"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:gravity="center"
+                tools:text="12:30 pm | 12 sep 2018"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x10"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/x7"
+            android:paddingStart="@dimen/x7"
+            android:paddingTop="@dimen/x15">
+
+            <com.app.court.ui.views.AnyTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:maxLines="1"
+                android:text="@string/subject"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_subject"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:alpha="0.6"
+                android:gravity="start|center"
+                tools:text="Filling Subject"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/x30"
+            android:paddingEnd="@dimen/x7"
+            android:paddingStart="@dimen/x7"
+            android:paddingTop="@dimen/x15">
+
+            <com.app.court.ui.views.AnyTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:maxLines="1"
+                android:text="@string/case_description"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+
+            <com.app.court.ui.views.AnyTextView
+                android:id="@+id/tv_case_description"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:alpha="0.6"
+                android:gravity="center|start"
+                android:maxLines="4"
+                tools:text="@string/lorem_ipsum"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="@dimen/x35"
+            android:layout_marginStart="@dimen/x35"
+            android:layout_marginBottom="@dimen/x30"
+            android:background="@drawable/rounded_button"
+            android:text="@string/payment"
+            android:textSize="@dimen/x18"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_mark_as_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/x30"
+            android:layout_marginEnd="@dimen/x35"
+            android:layout_marginStart="@dimen/x35"
+            android:background="@drawable/rounded_button_transparent"
+            android:text="@string/mark_as_complete"
+            android:textSize="@dimen/x18"
+            android:textColor="@color/app_orange"
+            android:visibility="gone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"
+            android:alpha="0.6"
+            android:background="@color/light_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x20"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout_marginEnd="@dimen/x7"
+            android:layout_marginStart="@dimen/x7"
+            android:layout_marginTop="@dimen/x10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.app.court.ui.views.AnyTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:maxLines="1"
+                android:text="@string/case_comments"
+                android:textColor="@color/app_dark_gray"
+                android:textSize="@dimen/x13"
+                app:typeface="@string/font_normal" />
+
+            <LinearLayout
+                android:id="@+id/ll_add_comments"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="0.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/x1"
+                    android:src="@drawable/addcomments" />
+
+                <com.app.court.ui.views.AnyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/x5"
+                    android:drawablePadding="@dimen/x5"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/add_comments"
+                    android:textColor="@color/app_orange"
+                    android:textSize="@dimen/x13"
+                    app:typeface="@string/font_normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.app.court.ui.views.ExpandedListView
+            android:id="@+id/lv_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:scrollbars="none"
+            android:visibility="visible" />
+
+        <com.app.court.ui.views.AnyTextView
+            android:id="@+id/txt_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="No Comments"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/x15"
+            android:visibility="gone"
+            app:typeface="Roboto-Regular.ttf" />
+
+    </LinearLayout>
+
+</ScrollView>
