@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.crashlytics.android.Crashlytics;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -14,6 +15,8 @@ import com.nostra13.universalimageloader.utils.L;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
+import io.fabric.sdk.android.Fabric;
+
 public class BaseApplication extends MultiDexApplication {
 	public static Bus bus;
 	@Override
@@ -21,6 +24,7 @@ public class BaseApplication extends MultiDexApplication {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		MultiDex.install(this);
+		Fabric.with(this, new Crashlytics());
 		initImageLoader();
 		bus = new Bus(ThreadEnforcer.MAIN);
 	}

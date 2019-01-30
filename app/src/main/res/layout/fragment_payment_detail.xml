@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x35"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
         android:layout_gravity="center"
         android:layout_marginEnd="@dimen/x10"
         android:layout_marginStart="@dimen/x10"
@@ -23,7 +24,7 @@
             android:layout_weight="0.55"
             android:alpha="0.8"
             android:gravity="start|center_vertical"
-            android:text="White Case.."
+android:text="sdfsdf"
             android:textColor="@color/app_dark_gray"
             android:textSize="@dimen/x15"
             app:typeface="@string/font_normal" />
@@ -36,7 +37,7 @@
             android:layout_weight="0.45"
             android:alpha="0.6"
             android:gravity="end|center_vertical"
-            android:text="12:30 pm | 12 sep 2018"
+
             android:textColor="@color/app_dark_gray"
             android:textSize="@dimen/x12"
             app:typeface="@string/font_normal" />
@@ -49,7 +50,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="@dimen/x10"
         android:layout_marginStart="@dimen/x10"
-        android:layout_marginTop="@dimen/x10"
+        android:layout_marginTop="@dimen/x5"
         android:orientation="horizontal">
 
         <com.app.court.ui.views.AnyTextView
@@ -70,7 +71,7 @@
             android:layout_gravity="start|center_vertical"
             android:gravity="start|center_vertical"
             android:maxLines="1"
-            android:text="Philipe Gibson"
+
             android:textColor="@color/app_dark_gray"
             android:textSize="@dimen/x13"
             android:alpha="0.6"
@@ -88,7 +89,7 @@
         android:alpha="0.6"
         android:gravity="start|center_vertical"
         android:maxLines="1"
-        android:text="Case to solve property snatching case"
+        android:visibility="gone"
         android:textColor="@color/app_dark_gray"
         android:textSize="@dimen/x13"
         app:typeface="@string/font_normal" />
@@ -119,7 +120,7 @@
             android:layout_weight="0.6"
             android:alpha="0.6"
             android:gravity="end"
-            android:text="$ 4000.00"
+            android:text="$0.00"
             android:textColor="@color/dark_green"
             android:textSize="@dimen/x15"
             app:typeface="@string/font_bold" />

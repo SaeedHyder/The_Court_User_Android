@@ -91,6 +91,7 @@ public class HistoryPaymentFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        prefHelper.setDuePayment(false);
         mainFrame.setVisibility(View.GONE);
         getMyCase();
         searchingName();

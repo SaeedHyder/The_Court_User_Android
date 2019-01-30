@@ -59,6 +59,13 @@ import com.app.court.ui.views.TitleBar;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
 import com.google.gson.Gson;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.yovenny.videocompress.MediaController;
 
 import java.io.ByteArrayOutputStream;
@@ -70,6 +77,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -88,7 +96,7 @@ import permissions.dispatcher.OnShowRationale;
 
 import static android.app.Activity.RESULT_OK;
 
-public class CaseMessagesFragment extends BaseFragment implements MainActivity.ImageSetter  {
+public class CaseMessagesFragment extends BaseFragment implements MainActivity.ImageSetter {
 
 
     @BindView(R.id.iv_description)
@@ -188,7 +196,7 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
 
             @Override
             public void itemCrossClickChat(Object item) {
-                FileType fileType=(FileType)item;
+                FileType fileType = (FileType) item;
                 fileStringList.remove(fileType);
                 adapter.addAll(fileStringList);
                 if (fileStringList.size() > 0) {
@@ -266,8 +274,9 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
                     UIHelper.showShortToastInCenter(getDockActivity(), "You can't select more than 5 attachments");
                     return;
                 }
-                if (Utils.doubleClickCheck())
-                    CaseChatFragmentPermissionDispacher.getStoragePermissionWithPermissionCheck(CaseMessagesFragment.this);
+                //  if (Utils.doubleClickCheck())
+                //    CaseChatFragmentPermissionDispacher.getStoragePermissionWithPermissionCheck(CaseMessagesFragment.this);
+                requestCameraPermission();
                 break;
             case R.id.btn_send:
                 sendMessage();
@@ -276,40 +285,34 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
     }
 
     private void sendMessage() {
+
         ArrayList<MultipartBody.Part> files = new ArrayList<>();
         ArrayList<MultipartBody.Part> thumbnails = new ArrayList<>();
         ArrayList<MultipartBody.Part> type = new ArrayList<>();
-        fileCollection = new ArrayList<>();
+
 
         if (fileStringList != null) {
             int index = 0;
             for (FileType fileObj : fileStringList) {
 
+                if (fileObj.getFile() != null) {
+                    files.add(MultipartBody.Part.createFormData("file[]",
+                            fileObj.getFile().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
+                                    fileObj.getFile())));
+                }
 
-                //For thumbnail
-                if (fileObj.getThumbnailfileUrl() != null)
-//                    File thumbnailFile = new File("file:///" + fileObj.getFileThumbnail());
-                    thumbnails.add(MultipartBody.Part.createFormData("thumb_nail",
+                if (fileObj.getThumbnailfileUrl() != null) {
+                    thumbnails.add(MultipartBody.Part.createFormData("thumb_nail[]",
                             fileObj.getThumbnailfileUrl().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
                                     fileObj.getThumbnailfileUrl())));
-                fileCollection.add(thumbnails.get(index));
+                }
 
-                //For type
-                type.add(MultipartBody.Part.createFormData("type", fileExtensionList.get(index)));
-                fileCollection.add(type.get(index));
-
-                //For file
-                files.add(MultipartBody.Part.createFormData("file",
-                        fileObj.getFile().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
-                                fileObj.getFile())));
-                fileCollection.add(files.get(index));
-
+                type.add(MultipartBody.Part.createFormData("type[]", fileStringList.get(index).getType()));
+             //   type.add(MultipartBody.Part.createFormData("type[]", fileExtensionList.get(index)));
                 index++;
             }
-
         }
 
-        documents.put("documents[]", fileCollection);
 
         if (txtSendMessage.getText().toString() != null && !txtSendMessage.getText().toString().trim().equals("")) {
             String receiverId = "";
@@ -318,7 +321,13 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
             } else {
                 receiverId = entity.getLawyerId();
             }
-            serviceHelper.enqueueCall(webService.sendMsg(entity.getId() + "", receiverId, txtSendMessage.getText().toString()), WebServiceConstants.SEND_MSG);
+
+            RequestBody case_id = RequestBody.create(MediaType.parse("text/plain"), entity.getId() + "");
+            RequestBody receiver_id = RequestBody.create(MediaType.parse("text/plain"), receiverId);
+            RequestBody message = RequestBody.create(MediaType.parse("text/plain"), txtSendMessage.getText().toString());
+
+            serviceHelper.enqueueCall(webService.sendMsg(case_id, receiver_id, message, files, thumbnails, type), WebServiceConstants.SEND_MSG);
+            //  serviceHelper.enqueueCall(webService.sendMsg(entity.getId() + "", receiverId, txtSendMessage.getText().toString()), WebServiceConstants.SEND_MSG);
 
         } else {
             UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.write_your_msg));
@@ -336,22 +345,40 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
         switch (Tag) {
             case WebServiceConstants.CASE_MESSAGE:
                 getThread = (ArrayList<CaseMessagesEntity>) result;
+                if (getThread.size() > 0) {
+                    lvChat.setVisibility(View.VISIBLE);
+                    txtNoData.setVisibility(View.GONE);
+                } else {
+                    lvChat.setVisibility(View.GONE);
+                    txtNoData.setVisibility(View.VISIBLE);
+                }
                 bindData(getThread);
                 break;
 
             case WebServiceConstants.SEND_MSG:
 
-                adapter.clearList();
-                fileStringList = new ArrayList<>();
-                rvAttachedDocs.setVisibility(View.GONE);
-                txtSendMessage.setText("");
                 getThread = new ArrayList<>();
                 getThread = (ArrayList<CaseMessagesEntity>) result;
 
-                lvChat.clearList();
-                lvChat.addAll(getThread);
+                if (getThread.size() > 0) {
+                    lvChat.setVisibility(View.VISIBLE);
+                    txtNoData.setVisibility(View.GONE);
+                }else{
+                    lvChat.setVisibility(View.GONE);
+                    txtNoData.setVisibility(View.VISIBLE);
+                }
 
-                lvChat.scrollToPosition(getThread.size() - 1);
+                bindData(getThread);
+
+                fileStringList = new ArrayList<>();
+                rvAttachedDocs.setVisibility(View.GONE);
+                txtSendMessage.setText("");
+
+              /*  lvChat.clearList();
+                lvChat.addAll(getThread);
+                 lvChat.scrollToPosition(getThread.size() - 1);
+              */
+
 
                 break;
         }
@@ -759,5 +786,60 @@ public class CaseMessagesFragment extends BaseFragment implements MainActivity.I
 
             }
         }
+    }
+
+    private void requestCameraPermission() {
+        Dexter.withActivity(getDockActivity())
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        if (report.areAllPermissionsGranted()) {
+                            // SubmitCaseFragmentPermissionsDispatcher.getStoragePermissionWithPermissionCheck(ChatFragment.this);
+                            CameraOptionsSheetDialog();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            requestCameraPermission();
+
+                        } else if (report.getDeniedPermissionResponses().size() > 0) {
+                            requestCameraPermission();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        UIHelper.showShortToastInCenter(getDockActivity(), "Grant Camera and Storage Permission to processed");
+                        openSettings();
+                    }
+                })
+
+                .onSameThread()
+                .check();
+
+
+    }
+
+    private void openSettings() {
+
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        Uri uri = Uri.fromParts("package", getDockActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 }

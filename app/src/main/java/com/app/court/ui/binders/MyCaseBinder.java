@@ -71,7 +71,7 @@ public class MyCaseBinder extends ViewBinder<MyCaseEntity> {
 
         viewHolder.tvDate.setText((DateHelper.getLocalDate(entity.getCreatedAt()) + " | " + (DateHelper.getLocalTime(entity.getCreatedAt()))));
         String specialization = "<b><font color='#4F4F4F'>Lawyer: </font></b>";
-        viewHolder.tvLaywerName.setText(Html.fromHtml(specialization + preferenceHelper.getSignUpUser().getFullName() + ""), TextView.BufferType.SPANNABLE);
+        viewHolder.tvLaywerName.setText(Html.fromHtml(specialization + entity.getLawyerDetail().getFullName() + ""), TextView.BufferType.SPANNABLE);
 
         viewHolder.mainFrame.setOnClickListener(new View.OnClickListener() {
             @Override

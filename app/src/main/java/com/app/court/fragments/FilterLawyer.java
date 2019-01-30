@@ -1,20 +1,24 @@
 package com.app.court.fragments;
 
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.app.court.R;
 import com.app.court.entities.EntitySpinnerListing;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.WebServiceConstants;
 import com.app.court.helpers.InternetHelper;
+import com.app.court.helpers.UIHelper;
 import com.app.court.interfaces.IGetLocation;
 import com.app.court.ui.dialogs.DialogFactory;
 import com.app.court.ui.views.AnyTextView;
@@ -97,6 +101,14 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ratingBar.setOnScoreChanged(new CustomRatingBar.IRatingBarCallbacks() {
+            @Override
+            public void scoreChanged(float score) {
+                if (score < 1.0f)
+                    ratingBar.setScore(1.0f);
+            }
+        });
+
         getAffiliation();
         getSpecialization();
         getLanguage();
@@ -105,10 +117,11 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
 
         spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                languageLevel = languageList.get(i);
-                languageId = String.valueOf(languageListIds.get(i));
-                LANGUAGE_ID = languageId;
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position != 0) {
+                    languageId = String.valueOf(languageListIds.get(position));
+                    LANGUAGE_ID = languageId;
+                }
             }
 
             @Override
@@ -118,10 +131,11 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
 
         spSpecialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                specializationLevel = specializationList.get(i);
-                specializationId = String.valueOf(specializationListIds.get(i));
-                SPECIALIZATION_ID = specializationId;
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position != 0) {
+                    specializationId = String.valueOf(specializationListIds.get(position));
+                    SPECIALIZATION_ID = specializationId;
+                }
             }
 
             @Override
@@ -132,9 +146,10 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
         spAffiliation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                affiliationLevel = affiliationList.get(i);
-                affiliationId = String.valueOf(affiliationListIds.get(i));
-                AFFILIATION_ID = affiliationId;
+                if (i != 0) {
+                    affiliationId = String.valueOf(affiliationListIds.get(i));
+                    AFFILIATION_ID = affiliationId;
+                }
             }
 
             @Override
@@ -169,18 +184,13 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
     public void onLocationSet(LatLng location, String formattedAddress) {
         tvLocation.setText(formattedAddress + "");
 
-        this.location = location;
+      /*  this.location = location;
         LOCATION = tvLocation.getText().toString();
         LAT = String.valueOf(location.latitude);
-        LONG = String.valueOf(location.longitude);
+        LONG = String.valueOf(location.longitude);*/
     }
 
     private void setAutoCompleteListner() {
@@ -196,6 +206,9 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
                 LOCATION = selectedPlace.getAddress().toString();
                 LAT = String.valueOf(selectedPlace.getLatLng().latitude);
                 LONG = String.valueOf(selectedPlace.getLatLng().longitude);
+                UIHelper.hideSoftKeyboard(getDockActivity(), getView());
+                if (getDockActivity().getWindow() != null)
+                    getDockActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             }
         });
 
@@ -214,7 +227,9 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
-        RATING = String.valueOf(Math.round(ratingBar.getScore()));
+        if (!String.valueOf(Math.round(ratingBar.getScore())).equals("0")) {
+            RATING = String.valueOf(Math.round(ratingBar.getScore()));
+        }
 
         getDockActivity().popFragment();
         getDockActivity().replaceDockableFragment(FindLawyerFragment.newInstance(AFFILIATION_ID, SPECIALIZATION_ID, LANGUAGE_ID,
@@ -241,12 +256,38 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
             case WebServiceConstants.LANGUAGE:
 
                 languageList = new ArrayList<>();
-                ArrayList<EntitySpinnerListing> languageEnt = (ArrayList<EntitySpinnerListing>) result;
+                ArrayList<EntitySpinnerListing> languageEnt = new ArrayList<>();
+
+                EntitySpinnerListing entitySpinnerListing = new EntitySpinnerListing();
+                entitySpinnerListing.setTitle("Select Language");
+                entitySpinnerListing.setArTitle("Select Language");
+                entitySpinnerListing.setId(0);
+
+                languageEnt.add(entitySpinnerListing);
+                languageEnt.addAll((ArrayList<EntitySpinnerListing>) result);
+
                 for (EntitySpinnerListing ent : languageEnt) {
                     languageList.add(ent.getTitle());
                     languageListIds.add(ent.getId());
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, languageList);
+                // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, languageList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getDockActivity()
+                        , android.R.layout.simple_spinner_item, languageList) {
+                    @Override
+                    public boolean isEnabled(int position) {
+                        return !(position == 0);
+                    }
+
+                    @Override
+                    public View getDropDownView(int position, View convertView,
+                                                ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        tv.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                        return view;
+                    }
+
+                };
                 adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_2);
                 spLanguage.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -255,12 +296,38 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
             case WebServiceConstants.SPECIALIZATION:
 
                 specializationList = new ArrayList<>();
-                ArrayList<EntitySpinnerListing> specializationEnt = (ArrayList<EntitySpinnerListing>) result;
+                ArrayList<EntitySpinnerListing> specializationEnt = new ArrayList<>();
+                EntitySpinnerListing specializationListing = new EntitySpinnerListing();
+                specializationListing.setTitle("Select Specialization");
+                specializationListing.setArTitle("Select Specialization");
+                specializationListing.setId(0);
+
+                specializationEnt.add(specializationListing);
+                specializationEnt.addAll((ArrayList<EntitySpinnerListing>) result);
+
                 for (EntitySpinnerListing ent : specializationEnt) {
                     specializationList.add(ent.getTitle());
                     specializationListIds.add(ent.getId());
                 }
-                ArrayAdapter<String> adapterSpecialization = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, specializationList);
+                //    ArrayAdapter<String> adapterSpecialization = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, specializationList);
+
+                ArrayAdapter<String> adapterSpecialization = new ArrayAdapter<String>(getDockActivity()
+                        , android.R.layout.simple_spinner_item, specializationList) {
+                    @Override
+                    public boolean isEnabled(int position) {
+                        return !(position == 0);
+                    }
+
+                    @Override
+                    public View getDropDownView(int position, View convertView,
+                                                ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        tv.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                        return view;
+                    }
+
+                };
                 adapterSpecialization.setDropDownViewResource(R.layout.spinner_dropdown_item_2);
                 spSpecialization.setAdapter(adapterSpecialization);
                 adapterSpecialization.notifyDataSetChanged();
@@ -269,12 +336,37 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
             case WebServiceConstants.AFFILIATION:
 
                 affiliationList = new ArrayList<>();
-                ArrayList<EntitySpinnerListing> affiliationEnt = (ArrayList<EntitySpinnerListing>) result;
+                ArrayList<EntitySpinnerListing> affiliationEnt = new ArrayList<>();
+                EntitySpinnerListing affiliationListing = new EntitySpinnerListing();
+                affiliationListing.setTitle("Select Affiliation");
+                affiliationListing.setArTitle("Select Affiliation");
+                affiliationListing.setId(0);
+
+                affiliationEnt.add(affiliationListing);
+                affiliationEnt.addAll((ArrayList<EntitySpinnerListing>) result);
+
                 for (EntitySpinnerListing ent : affiliationEnt) {
                     affiliationList.add(ent.getTitle());
                     affiliationListIds.add(ent.getId());
                 }
-                ArrayAdapter<String> adapterAffiliation = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, affiliationList);
+                //     ArrayAdapter<String> adapterAffiliation = new ArrayAdapter<String>(getDockActivity(), R.layout.spinner_item_2, affiliationList);
+                ArrayAdapter<String> adapterAffiliation = new ArrayAdapter<String>(getDockActivity()
+                        , android.R.layout.simple_spinner_item, affiliationList) {
+                    @Override
+                    public boolean isEnabled(int position) {
+                        return !(position == 0);
+                    }
+
+                    @Override
+                    public View getDropDownView(int position, View convertView,
+                                                ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        tv.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                        return view;
+                    }
+
+                };
                 adapterAffiliation.setDropDownViewResource(R.layout.spinner_dropdown_item_2);
                 spAffiliation.setAdapter(adapterAffiliation);
                 adapterAffiliation.notifyDataSetChanged();
@@ -289,6 +381,7 @@ public class FilterLawyer extends BaseFragment implements IGetLocation, View.OnC
         ratingBar.setScore(0);
         RATING = "";
         tvLocation.setText("");
+        txtAutoComplete.setText("");
         spLanguage.setSelection(0);
         spAffiliation.setSelection(0);
         spSpecialization.setSelection(0);

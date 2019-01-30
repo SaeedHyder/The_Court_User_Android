@@ -38,7 +38,7 @@ public class MyCaseDescriptionBinder extends ViewBinder<CommentsEntity> {
     public void bindView(CommentsEntity entity, int position, int grpPosition, View view, Activity activity) {
         imageLoader = ImageLoader.getInstance();
         ViewHolder viewHolder = (ViewHolder) view.getTag();
-        viewHolder.tvName.setText(preferenceHelper.getSignUpUser().getFullName()+"");
+        viewHolder.tvName.setText(entity.getUserDetail().getFullName()+"");
         viewHolder.tvDescription.setText(entity.getMessage()+"");
         viewHolder.tvDate.setText((DateHelper.getLocalDate(entity.getCreatedAt()) + " | " + (DateHelper.getLocalTime(entity.getCreatedAt()))));
         imageLoader.displayImage(entity.getUserDetail().getImageUrl(), viewHolder.ivImage);

@@ -130,12 +130,13 @@ public class FindLawyerFragment extends BaseFragment {
         ArrayList<FindLawyerEntity> arrayList = new ArrayList<>();
 
         String UserName = "";
-        for (FindLawyerEntity item : userCollection) {
-            UserName = item.getFullName();
-            if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
-                arrayList.add(item);
+        if (userCollection != null)
+            for (FindLawyerEntity item : userCollection) {
+                UserName = item.getFullName();
+                if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
+                    arrayList.add(item);
+                }
             }
-        }
         return arrayList;
 
     }
@@ -155,7 +156,7 @@ public class FindLawyerFragment extends BaseFragment {
         titleBar.showFilterButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDockActivity().popFragment();
+                getDockActivity().popBackStackTillEntry(1);
                 getDockActivity().replaceDockableFragment(FilterLawyer.newInstance(), "FilterLawyer");
             }
         });

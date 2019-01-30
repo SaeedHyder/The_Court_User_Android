@@ -2,19 +2,24 @@ package com.app.court.helpers;
 
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 
+
+import com.app.court.R;
 import com.app.court.global.AppConstants;
 
 import java.text.ParseException;
@@ -22,22 +27,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * Created on 5/8/2017.
  */
 
 public class NotificationHelper {
-    private static final NotificationHelper notificationHelper = new NotificationHelper();
+    private static final String CHANNEL = "com.app.court";
     private static String TAG = NotificationHelper.class.getSimpleName();
     private Context mContext;
 
     public static NotificationHelper getInstance() {
-        return notificationHelper;
+        return new NotificationHelper();
     }
 
     public void showNotification(Context mContext, int icon, String title, String message, String timeStamp,
                                  Intent intent) {
         // Check for empty push message
+
+
         if (TextUtils.isEmpty(message))
             return;
 
@@ -54,30 +62,62 @@ public class NotificationHelper {
         //notification sound here
         final Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        playNotificationSound(mContext);
+
         NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
 
         bigTextStyle.bigText(message);
 
-        Notification notification;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-        notification = mBuilder
-                .setSmallIcon(icon)
-                .setTicker(message).setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(title)
-                .setContentIntent(resultPendingIntent)
-                .setSound(alarmSound)
-                .setStyle(bigTextStyle)
-                .setWhen(getTimeMilliSec(timeStamp))
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setContentText(message)
-                .setOnlyAlertOnce(true).setPriority(NotificationCompat.PRIORITY_HIGH)
-                .build();
+            int importance = NotificationManager.IMPORTANCE_HIGH;
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(AppConstants.NOTIFICATION_ID);
-        notificationManager.notify(AppConstants.NOTIFICATION_ID, notification);
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL, mContext.getResources().getString(R.string.app_name), importance);
+            mChannel.setDescription(message);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.BLUE);
+            NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager != null)
+                manager.createNotificationChannel(mChannel);
+
+
+            Notification notification = new NotificationCompat.Builder(mContext,CHANNEL)
+                    .setSmallIcon(icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),icon))
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setTicker(message)
+                    .setContentIntent(resultPendingIntent)
+                    .setStyle(bigTextStyle)
+                    .setWhen(getTimeMilliSec(timeStamp))
+                    .setOnlyAlertOnce(true)
+                    .build();
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
+            notificationManager.cancel(AppConstants.NOTIFICATION_ID);
+            notificationManager.notify(AppConstants.NOTIFICATION_ID, notification);
+
+        } else {
+            Notification notification;
+
+            notification = mBuilder
+                    .setSmallIcon(icon)
+                    .setTicker(message).setWhen(0)
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentIntent(resultPendingIntent)
+                    .setSound(alarmSound)
+                    .setStyle(bigTextStyle)
+                    .setWhen(getTimeMilliSec(timeStamp))
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setContentText(message)
+                    .setOnlyAlertOnce(true).setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build();
+            playNotificationSound(mContext);
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(AppConstants.NOTIFICATION_ID);
+            notificationManager.notify(AppConstants.NOTIFICATION_ID, notification);
+
+        }
         //AppConstants.NOTIFICATION_ID++;
 
     }

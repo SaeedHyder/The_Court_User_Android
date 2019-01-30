@@ -37,12 +37,12 @@ public class BinderFindLawyer extends ViewBinder<FindLawyerEntity> {
     public void bindView(final FindLawyerEntity entity, int position, int grpPosition, View view, Activity activity) {
         imageLoader = ImageLoader.getInstance();
         ViewHolder viewHolder = (ViewHolder) view.getTag();
-        String name = "<font color='#858992'>Field </font><b><font color='#858992'>Breach of Contract</font></b>";
+       /* String name = "<font color='#858992'>Field </font><b><font color='#858992'>Breach of Contract</font></b>";
         viewHolder.tvField.setText(Html.fromHtml(name), TextView.BufferType.SPANNABLE);
         String field = "<font color='#858992'>Profession </font><b><font color='#858992'>Lawyer</font></b>";
         viewHolder.tvProfession.setText(Html.fromHtml(field), TextView.BufferType.SPANNABLE);
         String profession = "<font color='#858992'>Experience </font><b><font color='#858992'>0 Years</font></b>";
-        viewHolder.tvExperience.setText(Html.fromHtml(profession), TextView.BufferType.SPANNABLE);
+        viewHolder.tvExperience.setText(Html.fromHtml(profession), TextView.BufferType.SPANNABLE);*/
         viewHolder.llMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +51,12 @@ public class BinderFindLawyer extends ViewBinder<FindLawyerEntity> {
         });
 
         imageLoader.displayImage(entity.getImageUrl(), viewHolder.ivImage);
+
+       // String fullname = "<font color='#000'>"+entity.getFullName()+"</font>";
+      //  viewHolder.tvName.setText(Html.fromHtml(fullname), TextView.BufferType.SPANNABLE);
         viewHolder.tvName.setText(entity.getFullName() + "");
+
+
         int i;
 
         StringBuilder commaSeparatedNames = new StringBuilder();
@@ -59,12 +64,20 @@ public class BinderFindLawyer extends ViewBinder<FindLawyerEntity> {
             if (i == 0) {
                 commaSeparatedNames.append(entity.getSpecializations().get(i).getSpecializationDetail().getTitle());
             } else {
-                commaSeparatedNames.append(", "+entity.getSpecializations().get(i).getSpecializationDetail().getTitle());
+                commaSeparatedNames.append(", " + entity.getSpecializations().get(i).getSpecializationDetail().getTitle());
             }
         }
-        viewHolder.tvField.setText("Field " + commaSeparatedNames);
-        viewHolder.tvProfession.setText("Profession " + entity.getAffilationDetail().getTitle());
-        viewHolder.tvExperience.setText("Experience " + entity.getExperienceDetail().getTitle());
+
+        //  String name = "<font color='#3f3f3f'>Field : </font>";
+        String name = "<font color='#000'>Field : </font>";
+        viewHolder.tvField.setText(Html.fromHtml(name + commaSeparatedNames), TextView.BufferType.SPANNABLE);
+        //  viewHolder.tvField.setText("Field : " + commaSeparatedNames);
+        String field = "<font color='#000'>Profession : </font>";
+        viewHolder.tvProfession.setText(Html.fromHtml(field + entity.getAffilationDetail().getTitle()), TextView.BufferType.SPANNABLE);
+        //   viewHolder.tvProfession.setText("Profession : " + entity.getAffilationDetail().getTitle());
+        String profession = "<font color='#000'>Experience : </font>";
+        viewHolder.tvExperience.setText(Html.fromHtml(profession + entity.getExperienceDetail().getTitle()), TextView.BufferType.SPANNABLE);
+        //  viewHolder.tvExperience.setText("Experience : " + entity.getExperienceDetail().getTitle());
     }
 
     static class ViewHolder extends BaseViewHolder {

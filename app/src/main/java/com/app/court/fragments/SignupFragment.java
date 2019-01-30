@@ -73,10 +73,6 @@ public class SignupFragment extends BaseFragment {
         titleBar.hideTitleBar();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
     private boolean validate() {
         return edtName.testValidity() && edtEmail.testValidity() && edtPhoneNumber.testValidity()
@@ -91,14 +87,14 @@ public class SignupFragment extends BaseFragment {
                 break;
             case R.id.btn_signup:
                 if (validate())
-                    if (edtPhoneNumber.getText().toString().length() < 4) {
+                    if (edtPhoneNumber.getText().toString().length() <7) {
                         UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.phone_length_alert));
                     } else if (edtPassword.getText().toString().length() < 6) {
                         UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.password_length_alert));
                     } else if (edtCfmPassword.getText().toString().length() < 6) {
                         UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.password_length_alert));
                     } else if (!edtPassword.getText().toString().equalsIgnoreCase(edtCfmPassword.getText().toString())) {
-                        UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.password_length_alert));
+                        UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.conform_password_error));
                     } else {
                         signUp();
                     }
@@ -110,7 +106,7 @@ public class SignupFragment extends BaseFragment {
     }
 
     private void signUp() {
-        serviceHelper.enqueueCall(webService.signup(edtName.getText().toString() + "", edtEmail.getText().toString() + "", edtPhoneNumber.getText().toString() + "", edtPassword.getText().toString() + "", AppConstants.DEVICE_TYPE, FirebaseInstanceId.getInstance().getToken(), ""), WebServiceConstants.SIGN_UP);
+        serviceHelper.enqueueCall(webService.signup(edtName.getText().toString() + "", edtEmail.getText().toString() + "", edtPhoneNumber.getText().toString() + "", edtPassword.getText().toString() + "",edtPassword.getText().toString() + "", AppConstants.DEVICE_TYPE, FirebaseInstanceId.getInstance().getToken(), ""), WebServiceConstants.SIGN_UP);
     }
 
     @Override
@@ -121,6 +117,7 @@ public class SignupFragment extends BaseFragment {
             case WebServiceConstants.SIGN_UP:
                 SignUpEntity entity = (SignUpEntity) result;
                 prefHelper.putSignupUser(entity);
+                getMainActivity().popBackStackTillEntry(1);
                 getDockActivity().replaceDockableFragment(TermsAndConditionFragment.newInstance(AppConstants.COMING_FROM_SIGNUP), "TermsAndConditionFragment");
                 break;
         }

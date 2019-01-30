@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.app.court.R;
+import com.app.court.entities.SignUpEntity;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.AppConstants;
 import com.app.court.global.WebServiceConstants;
@@ -66,6 +67,11 @@ public class SettingsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         setListners();
+        if (prefHelper.getSignUpUser().getIsNotify().equals("1")) {
+            toggleNotification.setChecked(true);
+        } else {
+            toggleNotification.setChecked(false);
+        }
     }
 
     private void setListners() {
@@ -73,7 +79,10 @@ public class SettingsFragment extends BaseFragment {
         toggleNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                getMainActivity().notImplemented();
+                SignUpEntity signUpEntity=prefHelper.getSignUpUser();
+                signUpEntity.setIsNotify(isChecked ? "1" : "0");
+                prefHelper.putSignupUser(signUpEntity);
+                serviceHelper.enqueueCall(webService.pushOnOff(isChecked ? 1 : 0), WebServiceConstants.PUSHONOFF);
             }
         });
     }
@@ -85,7 +94,7 @@ public class SettingsFragment extends BaseFragment {
         titleBar.showBackButtonAsPerRequirement(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(),"HomeFragment");
+                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
             }
         });
         titleBar.setSubHeading(getString(R.string.settings));
@@ -100,7 +109,7 @@ public class SettingsFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_changePassword:
-                getDockActivity().replaceDockableFragment(ChangePasswordFragment.newInstance(),"ChangePasswordFragment");
+                getDockActivity().replaceDockableFragment(ChangePasswordFragment.newInstance(), "ChangePasswordFragment");
                 break;
             case R.id.btn_english:
                 getMainActivity().notImplemented();
@@ -109,10 +118,10 @@ public class SettingsFragment extends BaseFragment {
                 getMainActivity().notImplemented();
                 break;
             case R.id.btn_about:
-                getDockActivity().replaceDockableFragment(AboutFragment.newInstance(),"AboutFragment");
+                getDockActivity().replaceDockableFragment(AboutFragment.newInstance(), "AboutFragment");
                 break;
             case R.id.btn_terms_condition:
-                getDockActivity().replaceDockableFragment(TermsAndConditionFragment.newInstance(AppConstants.COMING_FROM_SETTINGS),"TermsAndConditionFragment");
+                getDockActivity().replaceDockableFragment(TermsAndConditionFragment.newInstance(AppConstants.COMING_FROM_SETTINGS), "TermsAndConditionFragment");
                 break;
             case R.id.btn_logout:
                 final DialogHelper dialoge = new DialogHelper(getDockActivity());
@@ -149,6 +158,7 @@ public class SettingsFragment extends BaseFragment {
                 getDockActivity().popBackStackTillEntry(0);
                 getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), LoginFragment.class.getName());
                 break;
+
         }
     }
 }

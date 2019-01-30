@@ -13,6 +13,7 @@ import com.app.court.entities.PaymentEntity;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.AppConstants;
 import com.app.court.global.WebServiceConstants;
+import com.app.court.helpers.DateHelper;
 import com.app.court.helpers.UIHelper;
 import com.app.court.ui.views.AnyTextView;
 import com.app.court.ui.views.TitleBar;
@@ -41,7 +42,9 @@ public class PaymentDetailFragment extends BaseFragment {
     @BindView(R.id.btn_login)
     Button btnLogin;
     private static String CASE_KEY_PAYMENT = "CASE_KEY_PAYMENT";
+    private static String PAYMENT_ENTITY = "PAYMENT_ENTITY";
     private MyCaseEntity entity;
+    private PaymentEntity payment_Entity;
     private static String ID;
     Unbinder unbinder;
 
@@ -52,9 +55,10 @@ public class PaymentDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public static PaymentDetailFragment newInstance(MyCaseEntity entity, String paymentId) {
+    public static PaymentDetailFragment newInstance(MyCaseEntity entity, String paymentId, PaymentEntity paymentEntity) {
         Bundle args = new Bundle();
         args.putString(CASE_KEY_PAYMENT, new Gson().toJson(entity));
+        args.putString(PAYMENT_ENTITY, new Gson().toJson(paymentEntity));
         ID = paymentId;
         PaymentDetailFragment fragment = new PaymentDetailFragment();
         fragment.setArguments(args);
@@ -64,12 +68,24 @@ public class PaymentDetailFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String PaymentJsonString;
+        String CaseKeyJsonString;
+
         if (getArguments() != null) {
-            CASE_KEY_PAYMENT = getArguments().getString(CASE_KEY_PAYMENT);
+            CaseKeyJsonString = getArguments().getString(CASE_KEY_PAYMENT);
+            PaymentJsonString = getArguments().getString(PAYMENT_ENTITY);
+
+            if (PaymentJsonString != null) {
+                payment_Entity = new Gson().fromJson(PaymentJsonString, PaymentEntity.class);
+            }
+
+            if (CaseKeyJsonString != null) {
+                entity = new Gson().fromJson(CaseKeyJsonString, MyCaseEntity.class);
+            }
         }
-        if (CASE_KEY_PAYMENT != null) {
-            entity = new Gson().fromJson(CASE_KEY_PAYMENT, MyCaseEntity.class);
-        }
+
+
     }
 
     @Override
@@ -91,9 +107,16 @@ public class PaymentDetailFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tvCaseType.setText(payment_Entity.getTitle() + "");
+        tvCaseName.setText(entity.getDetail() + "");
+        tvLawyerName.setText(entity.getLawyerDetail().getFullName() + "");
+        tvDate.setText(DateHelper.getLocalDatePayment(entity.getCreatedAt() + ""));
+        tvAmount.setText("$" + payment_Entity.getCharges()+ "");
+
+      /*  if (entity.getPayments().size() > 0)
+            tvAmount.setText("$" + entity.getPayments().get(0).getCharges() + "");*/
 
     }
-
 
 
     @OnClick(R.id.btn_login)
@@ -103,6 +126,7 @@ public class PaymentDetailFragment extends BaseFragment {
 
     private void payNow() {
         serviceHelper.enqueueCall(webService.payDuePayment(Integer.parseInt(ID)), WebServiceConstants.PAY_NOW);
+        //serviceHelper.enqueueCall(webService.payDuePayment(entity.getId()), WebServiceConstants.PAY_NOW);
     }
 
     @Override
@@ -111,8 +135,9 @@ public class PaymentDetailFragment extends BaseFragment {
 
         switch (Tag) {
             case WebServiceConstants.PAY_NOW:
-                getDockActivity().popFragment();
-                UIHelper.showShortToastInCenter(getDockActivity(), "Payment successful.");
+
+                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                UIHelper.showShortToastInCenter(getDockActivity(), getDockActivity().getResources().getString(R.string.payment_successfully));
                 break;
         }
     }

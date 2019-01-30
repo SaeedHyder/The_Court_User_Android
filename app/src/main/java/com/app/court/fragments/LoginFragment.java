@@ -44,28 +44,34 @@ public class LoginFragment extends BaseFragment {
         return new LoginFragment();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
-
-        SpannableString content = new SpannableString("Forgot Password?");
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        tvForgotPassword.setText(content);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onViewCreated(view, savedInstanceState);
+
+
+        SpannableString content = new SpannableString("Forgot Password?");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        tvForgotPassword.setText(content);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        edtEmail.getText().clear();
+        edtPassword.getText().clear();
     }
 
     @Override
@@ -108,11 +114,18 @@ public class LoginFragment extends BaseFragment {
 
         switch (Tag) {
             case WebServiceConstants.LOGIN:
-                prefHelper.setLoginStatus(true);
-                getDockActivity().popBackStackTillEntry(0);
                 SignUpEntity entity = (SignUpEntity) result;
                 prefHelper.putSignupUser(entity);
-                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+
+                if (entity.getCodeVerified().equals("1")) {
+                    prefHelper.setLoginStatus(true);
+                    getDockActivity().popBackStackTillEntry(0);
+                    getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                } else {
+                    getDockActivity().popBackStackTillEntry(1);
+                    getDockActivity().replaceDockableFragment(EnterCodeFragment.newInstance(AppConstants.COMING_FROM_SIGNUP), "EnterCodeFragment");
+                }
+
                 break;
         }
     }

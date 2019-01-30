@@ -101,7 +101,7 @@
                     android:textSize="@dimen/x13"
                     app:typeface="@string/font_normal" />
 
-                <com.app.court.ui.views.AnyEditTextView
+                <com.app.court.ui.views.AnyTextView
                     android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -194,7 +194,24 @@
                     android:alpha="0.5"
                     android:textSize="@dimen/x13"
                     app:typeface="@string/font_normal"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
+
+                <com.app.court.ui.views.AutoCompleteProfileLocation
+                    android:id="@+id/tv_autocomplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:background="@color/transparent"
+                    android:layout_marginTop="@dimen/x5"
+                    android:alpha="0.5"
+                    android:gravity="start"
+                    android:hint="@string/select_location"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:singleLine="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/x13"
+                    />
 
 
                 <View

@@ -55,7 +55,7 @@ public class MessagesThreadFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adapter = new ArrayListAdapter<>(getDockActivity(), new BinderMessagesThread(getDockActivity(),prefHelper));
+        adapter = new ArrayListAdapter<>(getDockActivity(), new BinderMessagesThread(getDockActivity(), prefHelper));
     }
 
     @Nullable
@@ -106,10 +106,10 @@ public class MessagesThreadFragment extends BaseFragment {
 
     private void bindData(ArrayList<MessageThreadEntity> threadCollection) {
 
-        if(threadCollection.size()>0){
+        if (threadCollection.size() > 0) {
             lvMessagesThread.setVisibility(View.VISIBLE);
             txtNoData.setVisibility(View.GONE);
-        }else{
+        } else {
             lvMessagesThread.setVisibility(View.GONE);
             txtNoData.setVisibility(View.VISIBLE);
         }
@@ -149,14 +149,15 @@ public class MessagesThreadFragment extends BaseFragment {
         ArrayList<MessageThreadEntity> arrayList = new ArrayList<>();
 
         String UserName = "";
-        for (MessageThreadEntity item : userCollection) {
-            if (item.getCaseDetail() != null) {
-                UserName = item.getCaseDetail().getSubject();
-                if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
-                    arrayList.add(item);
+        if (userCollection != null)
+            for (MessageThreadEntity item : userCollection) {
+                if (item.getCaseDetail() != null) {
+                    UserName = item.getCaseDetail().getSubject();
+                    if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
+                        arrayList.add(item);
+                    }
                 }
             }
-        }
         return arrayList;
 
     }

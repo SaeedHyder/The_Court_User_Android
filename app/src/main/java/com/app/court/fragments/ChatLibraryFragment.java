@@ -98,13 +98,13 @@ public class ChatLibraryFragment extends BaseFragment {
             if (VIDEOS.size() > 0)
                 tvVideos.setText(Html.fromHtml(videos + "(" + VIDEOS.size() + ")"), TextView.BufferType.SPANNABLE);
             else
-                tvVideos.setText(Html.fromHtml(photos + "(0)"), TextView.BufferType.SPANNABLE);
+                tvVideos.setText(Html.fromHtml(videos + "(0)"), TextView.BufferType.SPANNABLE);
         }
         if (DOCS != null) {
             if (DOCS.size() > 0)
                 tvDocs.setText(Html.fromHtml(documents + "(" + DOCS.size() + ")"), TextView.BufferType.SPANNABLE);
             else
-                tvDocs.setText(Html.fromHtml(photos + "(0)"), TextView.BufferType.SPANNABLE);
+                tvDocs.setText(Html.fromHtml(documents + "(0)"), TextView.BufferType.SPANNABLE);
         }
     }
 

@@ -101,10 +101,10 @@
             android:layout_marginEnd="@dimen/x20"
             android:layout_marginStart="@dimen/x20"
             android:layout_marginTop="@dimen/x10"
-            app:maxStars="5"
             app:halfStars="false"
-            app:stars="0"
-            app:starPadding="@dimen/x5" />
+            app:maxStars="5"
+            app:starPadding="@dimen/x5"
+            app:stars="0" />
 
         <View
             android:layout_width="match_parent"
@@ -167,28 +167,26 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="@dimen/x15"
-            app:typeface="@string/font_normal"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:typeface="@string/font_normal" />
 
         <com.app.court.ui.views.AutoCompleteLocation
             android:id="@+id/tv_autocomplete"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x45"
+            android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginEnd="@dimen/x20"
-            android:layout_marginStart="@dimen/x10"
-            android:layout_marginTop="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:layout_marginTop="@dimen/x10"
             android:alpha="0.8"
             android:gravity="start"
             android:hint="@string/select_location"
             android:imeOptions="actionDone"
-            android:maxLength="99"
             android:maxLines="5"
             android:singleLine="false"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="@dimen/x15"
-            />
+            android:textSize="@dimen/x15" />
 
         <View
             android:layout_width="match_parent"

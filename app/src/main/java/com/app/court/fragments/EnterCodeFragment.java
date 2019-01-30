@@ -14,10 +14,12 @@ import com.app.court.entities.SignUpEntity;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.AppConstants;
 import com.app.court.global.WebServiceConstants;
+import com.app.court.helpers.TokenUpdater;
 import com.app.court.helpers.UIHelper;
 import com.app.court.ui.views.AnyTextView;
 import com.app.court.ui.views.PinEntryEditText;
 import com.app.court.ui.views.TitleBar;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,11 +115,18 @@ public class EnterCodeFragment extends BaseFragment {
             case WebServiceConstants.SIGNUP_CODE_VERIFICATION:
                 SignUpEntity entity = (SignUpEntity) result;
                 prefHelper.putSignupUser(entity);
+                TokenUpdater.getInstance().UpdateToken(getDockActivity(),
+                        entity.getId() + "",
+                        AppConstants.Device_Type,
+                        FirebaseInstanceId.getInstance().getToken());
                 if (comingFrom.equalsIgnoreCase(AppConstants.COMING_FROM_SIGNUP)) {
                     getDockActivity().popBackStackTillEntry(0);
-                    getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
-                } else
+                    prefHelper.setLoginStatus(true);
+                    getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                } else {
+                    getDockActivity().popBackStackTillEntry(1);
                     getDockActivity().replaceDockableFragment(ResetPasswordFragment.newInstance(), "ResetPasswordFragment");
+                }
                 break;
 
             case WebServiceConstants.RESEND_CODE:

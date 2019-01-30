@@ -242,4 +242,8 @@ public abstract class DockActivity extends AppCompatActivity implements
         return menuListener;
     }
 
+    public DockActivity getDockActivity() {
+        return (DockActivity) this;
+    }
+
 }

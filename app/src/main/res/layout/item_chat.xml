@@ -68,7 +68,7 @@
                             android:id="@+id/iv_lawyer"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/x90"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/pdf_image"
                             android:visibility="visible" />
 
@@ -179,7 +179,7 @@
                             android:id="@+id/iv_user"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/x90"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/bg3"
                             android:visibility="visible" />
 

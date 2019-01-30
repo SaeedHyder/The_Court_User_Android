@@ -148,6 +148,7 @@
     <string name="case_comments">Case Comments</string>
     <string name="add_comments">ADD COMMENTS</string>
     <string name="mark_as_complete">Mark As Complete</string>
+
     <string name="payment">Payment</string>
     <string name="case_description">Case Description:</string>
     <string name="subject">Subject:</string>
@@ -180,7 +181,7 @@
     <string name="select_location">Select Location</string>
     <string name="filter">Filter</string>
     <string name="password_length_alert">Password should be 6 or more characters long.</string>
-    <string name="phone_length_alert">Phone number should be of more than 4 characters long.</string>
+    <string name="phone_length_alert">Phone number should be of more than 6 characters long.</string>
     <string name="password_not_match">Password and confirm password does not match.</string>
     <string name="msg_alert">Message should contains at-least more than 4 characters.</string>
     <string name="photos">Photos</string>
@@ -194,6 +195,7 @@
     <string name="post_comment">Post Comment</string>
     <string name="pass_reset">Password reset successfully.</string>
     <string name="pass_changed">Password changed successfully.</string>
+    <string name="submit_case_successfully">Your case has been submitted successfully..</string>
     <string name="upload_doc">Please upload document of case.</string>
     <string name="failure_response">Something went wrong. Please try again.</string>
     <string name="no_records_found">No records found!</string>
@@ -216,6 +218,8 @@
     <string name="no_case_found">No Case Found</string>
     <string name="case_marked_complete">Case marked as completed.</string>
     <string name="write_your_msg">Write your message</string>
+    <string name="write_subject">Please write your subject</string>
+    <string name="write_description">Please write your description</string>
     <string name="inqueue">In-Queue</string>
     <string name="active">Active</string>
     <string name="inactive">In-Active</string>
@@ -226,9 +230,22 @@
     <string name="reject">Reject</string>
     <string name="confirm_acknowledgement">Confirm acknowledgement.</string>
     <string name="marked_as_completed">Case marked as completed.</string>
+    <string name="withdraw_case">Case withdraw successfully.</string>
     <string name="no_due_payment_found">No due payment found</string>
     <string name="no_payment_history_found">No payment history found</string>
     <string name="me">Me</string>
     <string name="no_message_thread_found">No message thread found</string>
+    <string name="payment_successfully">Payment successful.</string>
+    <string name="no_message_found">No message found</string>
+    <string name="enter_complete_name">Please enter complete name</string>
+    <string name="no_library_data_found">No library data found</string>
+    <string name="no_comment_found">No comment found</string>
+    <string name="rate_and_review"><![CDATA[Rate & Review]]></string>
+    <string name="kindly_rate_your_experience_with_the_lawyer_on_a_scale_1_out_5">Kindly rate your experience with the Lawyer \n on a scale 1 out 5</string>
+    <string name="kindly_rate">Kindly rate your experience with the Lawyer</string>
+    <string name="scale">on a scale 1 out 5</string>
+    <string name="rating_submitted_successfully">Rating submitted successfully</string>
+    <string name="no_response">No response from server</string>
+    <string name="please_enter_amont">Please submit amount to proceed.</string>
 
 </resources>

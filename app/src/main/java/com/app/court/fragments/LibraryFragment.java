@@ -211,13 +211,15 @@ public class LibraryFragment extends BaseFragment {
 
     private void setUpperData() {
 
-        imageLoader.displayImage(entity.get(0).getThumbUrl(), ivImage);
         ivVideos.setImageResource(R.drawable.video_placeholder);
         ivDocuments.setImageResource(R.drawable.pdf_image);
 
         for (int i = 0; i < entity.size(); i++) {
+
             if (entity.get(i).getType().equals(AppConstants.PHOTO)) {
+                imageLoader.displayImage(entity.get(i).getThumbUrl(), ivImage);
                 images.add(new MediaEntity(entity.get(i).getThumbUrl(), entity.get(i).getThumbNail(), AppConstants.PHOTO, entity.get(i).getCreatedAt()));
+
             }
             if (entity.get(i).getType().equals(AppConstants.VIDEO)) {
                 video.add(new MediaEntity(entity.get(i).getImageUrl(), entity.get(i).getFile(), AppConstants.VIDEO, entity.get(i).getCreatedAt()));

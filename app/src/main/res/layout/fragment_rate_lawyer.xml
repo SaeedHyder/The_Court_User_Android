@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/mainFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg4">
+
+    <com.app.court.ui.views.AnyTextView
+        android:id="@+id/txt_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kindly_rate_your_experience_with_the_lawyer_on_a_scale_1_out_5"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/x50"
+        android:layout_marginEnd="@dimen/x15"
+        android:textSize="@dimen/x18"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:alpha="0.7"
+        app:typeface="@string/font_normal"/>
+
+    <com.app.court.ui.views.CustomRatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="@dimen/x280"
+        android:layout_height="@dimen/x45"
+        android:layout_marginEnd="@dimen/x30"
+        android:layout_marginStart="@dimen/x30"
+        android:layout_marginTop="@dimen/x25"
+        android:layout_gravity="center"
+        app:maxStars="5"
+        app:halfStars="false"
+        app:stars="1"
+        app:starPadding="@dimen/x13"
+        />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/x20"
+        android:layout_marginEnd="@dimen/x30"
+        android:layout_marginStart="@dimen/x30"
+        android:layout_marginTop="@dimen/x30"
+        android:background="@drawable/rounded_button"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x18" />
+
+
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.app.court.fragments;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.app.court.global.WebServiceConstants.WITHDRAWCASE;
 
 public class CaseDescriptionFragment extends BaseFragment {
     @BindView(R.id.ll_description)
@@ -99,45 +102,37 @@ public class CaseDescriptionFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (entity.getAllowMessage() == 1) {
-            ivMessages.setImageResource(R.drawable.messages);
+        if (entity.getStatus().equals("1") && entity.getAllowMessage() == 0) {
+            ivMessages.setImageResource(R.drawable.disable);
+            btnMarkAsComplete.setText(getDockActivity().getResources().getString(R.string.withdraw));
             btnMarkAsComplete.setVisibility(View.VISIBLE);
-        } else {
+        } else if (entity.getStatus().equals("2") && entity.getAllowMessage() == 0) {
             ivMessages.setImageResource(R.drawable.disable);
             btnMarkAsComplete.setVisibility(View.GONE);
+        } else if (entity.getStatus().equals("2") && entity.getAllowMessage() == 1) {
+            ivMessages.setImageResource(R.drawable.messages);
+            btnMarkAsComplete.setText(getDockActivity().getResources().getString(R.string.mark_as_complete));
+            btnMarkAsComplete.setVisibility(View.VISIBLE);
         }
 
-        if(entity.getStatus().equals("3") || entity.getStatus().equals("4") ||entity.getStatus().equals("5") ||entity.getStatus().equals("7") ){
+        if (entity.getStatus().equals("3") || entity.getStatus().equals("4")) {
+            ivMessages.setImageResource(R.drawable.disable);
             btnPayment.setVisibility(View.GONE);
             btnMarkAsComplete.setVisibility(View.GONE);
+        } else if (entity.getStatus().equals("5") || entity.getStatus().equals("7")) {
+            btnPayment.setVisibility(View.GONE);
+            btnMarkAsComplete.setVisibility(View.GONE);
+            ivMessages.setImageResource(R.drawable.messages);
         }
-
 
         tvLawyerName.setText(entity.getLawyerDetail().getFullName() + "");
         tvSubject.setText(entity.getSubject() + "");
         tvCaseDescription.setText(entity.getDetail() + "");
         tvDate.setText((DateHelper.getLocalDate(entity.getCreatedAt()) + " | " + (DateHelper.getLocalTime(entity.getCreatedAt()))));
         bindData(entity.getComments());
-        lvComments.setOnTouchListener(null);
-        lvComments.setScrollContainer(false);
-        lvComments.setExpanded(true);
+
     }
 
-    public void bindData(ArrayList<CommentsEntity> comments) {
-
-
-        if (comments.size() <= 0) {
-            txtNoData.setVisibility(View.VISIBLE);
-            lvComments.setVisibility(View.GONE);
-        } else {
-            txtNoData.setVisibility(View.GONE);
-            lvComments.setVisibility(View.VISIBLE);
-        }
-
-        adapter.clearList();
-        lvComments.setAdapter(adapter);
-        adapter.addAll(comments);
-    }
 
     @Override
     public void setTitleBar(TitleBar titleBar) {
@@ -166,8 +161,10 @@ public class CaseDescriptionFragment extends BaseFragment {
                 if (entity.getAllowMessage() == 1) {
                     getDockActivity().popFragment();
                     getDockActivity().replaceDockableFragment(CaseMessagesFragment.newInstance(entity), "CaseMessagesFragment");
-                } else {
-                    UIHelper.showShortToastInCenter(getDockActivity(), "Please submit amount to proceed.");
+                } else if (entity.getStatus().equals("3") || entity.getStatus().equals("4")) {
+
+                }else{
+                    UIHelper.showShortToastInCenter(getDockActivity(), getDockActivity().getResources().getString(R.string.please_enter_amont));
                 }
                 break;
             case R.id.iv_library:
@@ -175,10 +172,15 @@ public class CaseDescriptionFragment extends BaseFragment {
                 getDockActivity().replaceDockableFragment(CaseLibraryFragment.newInstance(entity), "CaseLibraryFragment");
                 break;
             case R.id.btn_payment:
+                prefHelper.setDuePayment(true);
                 getDockActivity().replaceDockableFragment(PaymentFragment.newInstance(entity), "PaymentFragment");
                 break;
             case R.id.btn_mark_as_complete:
-                markAsComplete();
+                if (btnMarkAsComplete.getText().toString().equals(getDockActivity().getResources().getString(R.string.withdraw))) {
+                    withdrawCase();
+                } else {
+                    markAsComplete();
+                }
                 break;
 
             case R.id.ll_add_comments:
@@ -198,6 +200,27 @@ public class CaseDescriptionFragment extends BaseFragment {
                 dialogHelper.showDialog();
                 break;
         }
+    }
+
+    private void withdrawCase() {
+
+        final DialogHelper dialogHelper = new DialogHelper(getDockActivity());
+
+        dialogHelper.caseAcknowledge(R.layout.case_withdraw_dialoge, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceHelper.enqueueCall(webService.caseWithdraw(entity.getId()), WITHDRAWCASE);
+                dialogHelper.hideDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogHelper.hideDialog();
+            }
+        });
+
+        dialogHelper.setCancelable(false);
+        dialogHelper.showDialog();
     }
 
     private void markAsComplete() {
@@ -222,6 +245,7 @@ public class CaseDescriptionFragment extends BaseFragment {
                 break;*/
 
             case WebServiceConstants.MARK_COMPLETE:
+                //  getDockActivity().replaceDockableFragment(MyCaseFragment.newInstance(), "MyCaseFragment");
                 getDockActivity().popFragment();
                 UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.marked_as_completed));
                 break;
@@ -229,15 +253,38 @@ public class CaseDescriptionFragment extends BaseFragment {
             case WebServiceConstants.NEW_COMMENT:
                 UIHelper.hideSoftKeyboard(getDockActivity(), getView());
                 CommentResponseEnt response = (CommentResponseEnt) result;
-                adapter.add(response.getComments().get(0));
+                adapter.add(response.getComments().get(response.getComments().size() - 1));
                 adapter.notifyDataSetChanged();
+
+                lvComments.setSelection(response.getComments().size() - 1);
+
                 txtNoData.setVisibility(View.GONE);
                 lvComments.setVisibility(View.VISIBLE);
+                break;
+
+            case WITHDRAWCASE:
+                // getDockActivity().replaceDockableFragment(MyCaseFragment.newInstance(), "MyCaseFragment");
+                getDockActivity().popFragment();
+                UIHelper.showShortToastInCenter(getDockActivity(), getDockActivity().getResources().getString(R.string.withdraw_case));
                 break;
         }
     }
 
+    public void bindData(ArrayList<CommentsEntity> comments) {
 
+
+        if (comments.size() <= 0) {
+            txtNoData.setVisibility(View.VISIBLE);
+            lvComments.setVisibility(View.GONE);
+        } else {
+            txtNoData.setVisibility(View.GONE);
+            lvComments.setVisibility(View.VISIBLE);
+        }
+
+        adapter.clearList();
+        lvComments.setAdapter(adapter);
+        adapter.addAll(comments);
+    }
 
 
 }

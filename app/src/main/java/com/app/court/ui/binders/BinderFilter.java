@@ -35,13 +35,12 @@ public class BinderFilter extends RecyclerViewBinder<FilterEnt> {
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.cbFilterTypes.setText(entity.getData() + "");
 
-        if (position < 7) {
-            if (entity.isChecked() && entity.getData().equals(viewHolder.cbFilterTypes.getText().toString())) {
+            if (entity.isChecked()) {
                 viewHolder.cbFilterTypes.setChecked(true);
             } else {
                 viewHolder.cbFilterTypes.setChecked(false);
             }
-        }
+
 
         viewHolder.cbFilterTypes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

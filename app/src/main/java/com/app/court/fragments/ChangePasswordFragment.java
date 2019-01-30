@@ -69,7 +69,7 @@ public class ChangePasswordFragment extends BaseFragment {
             txtNewPassword.setError(getString(R.string.samePassword));
             return false;
         } else if (txtNewPassword.getText().toString().length() < 6) {
-            txtNewPassword.setError(getString(R.string.passwordLength));
+            txtNewPassword.setError(getString(R.string.password_length_alert));
             return false;
         } else if (txtConfirmPassword.getText() == null || (txtConfirmPassword.getText().toString().isEmpty())) {
             txtConfirmPassword.setError(getString(R.string.enter_confirm_password));

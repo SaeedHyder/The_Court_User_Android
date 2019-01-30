@@ -67,7 +67,7 @@ public class SignUpEntity {
     private String isCompleted;
     @SerializedName("experience_id")
     @Expose
-    private Object experienceId;
+    private String experienceId;
     @SerializedName("current_lang")
     @Expose
     private String currentLang;
@@ -256,11 +256,11 @@ public class SignUpEntity {
         this.isCompleted = isCompleted;
     }
 
-    public Object getExperienceId() {
+    public String getExperienceId() {
         return experienceId;
     }
 
-    public void setExperienceId(Object experienceId) {
+    public void setExperienceId(String experienceId) {
         this.experienceId = experienceId;
     }
 

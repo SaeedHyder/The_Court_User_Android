@@ -32,7 +32,7 @@ public class BinderPayments extends ViewBinder<PaymentEntity> {
 
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         viewHolder.tvCaseType.setText(entity.getTitle());
-        viewHolder.tvAmount.setText("$ " + entity.getCharges());
+        viewHolder.tvAmount.setText("$" + entity.getCharges());
         viewHolder.tvDate.setText(DateHelper.getLocalDate(entity.getCreatedAt()) + " | " + DateHelper.getLocalTime(entity.getCreatedAt()));
 
     }

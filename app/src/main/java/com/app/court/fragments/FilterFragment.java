@@ -37,7 +37,8 @@ public class FilterFragment extends BaseFragment {
     Button btnSubmit;
 
     private ArrayListAdapter<FilterEnt> adapter;
-    private ArrayList<String> selectedItems=new ArrayList<>();
+    private ArrayList<String> selectedItems = new ArrayList<>();
+    private ArrayList<FilterEnt> collection;
 
     public static FilterFragment newInstance() {
         Bundle args = new Bundle();
@@ -50,7 +51,7 @@ public class FilterFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  adapter = new ArrayListAdapter<>(getDockActivity(), new BinderFilter(getDockActivity()));
+        //  adapter = new ArrayListAdapter<>(getDockActivity(), new BinderFilter(getDockActivity()));
     }
 
     @Override
@@ -65,11 +66,21 @@ public class FilterFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         bindData();
+
     }
 
     private void bindData() {
 
-        lvFilter.BindRecyclerView(new BinderFilter(getDockActivity()), getMainActivity().getCollection(),
+        collection = new ArrayList<>();
+        collection.add(new FilterEnt("In-Queue Cases", "1"));
+        collection.add(new FilterEnt("Active Cases", "2"));
+        collection.add(new FilterEnt("In-Active Case", "3"));
+        collection.add(new FilterEnt("Withdraw Case", "4"));
+        collection.add(new FilterEnt("Completed Case", "5"));
+        collection.add(new FilterEnt("Request for Complete", "7"));
+        collection.add(new FilterEnt("Show All Cases", "1,2,3,4,5,7"));
+
+        lvFilter.BindRecyclerView(new BinderFilter(getDockActivity()), collection,
                 new LinearLayoutManager(getDockActivity(), LinearLayoutManager.VERTICAL, false)
                 , new DefaultItemAnimator());
     }
@@ -84,7 +95,7 @@ public class FilterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 selectedItems.clear();
-                for(FilterEnt item: getMainActivity().getCollection()){
+                for (FilterEnt item : collection) {
                     item.setChecked(false);
                 }
                 lvFilter.getAdapter().notifyDataSetChanged();
@@ -93,18 +104,17 @@ public class FilterFragment extends BaseFragment {
     }
 
 
-
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
-        if(getMainActivity().getCollection().size()>0){
-            for(FilterEnt item: getMainActivity().getCollection()){
-                if(item.isChecked()){
-                selectedItems.add(item.getId()+"");
+        if (collection.size() > 0) {
+            for (FilterEnt item : collection) {
+                if (item.isChecked()) {
+                    selectedItems.add(item.getId() + "");
                 }
             }
         }
-        String selectedFilters=android.text.TextUtils.join(",", selectedItems);
-
+        String selectedFilters = android.text.TextUtils.join(",", selectedItems);
+        getDockActivity().popFragment();
         getDockActivity().replaceDockableFragment(MyCaseFragment.newInstance(selectedFilters), "MyCaseFragment");
     }
 }

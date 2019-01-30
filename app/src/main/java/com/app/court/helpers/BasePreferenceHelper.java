@@ -14,6 +14,7 @@ public class BasePreferenceHelper extends PreferenceHelper {
     private Context context;
 
     protected static final String KEY_LOGIN_STATUS = "islogin";
+    protected static final String KEY_ISDUEPAYMENT = "isPayment";
     private static final String FILENAME = "preferences";
     protected static final String Firebase_TOKEN = "Firebasetoken";
     protected static final String NotificationCount = "NotificationCount";
@@ -32,6 +33,14 @@ public class BasePreferenceHelper extends PreferenceHelper {
 
     public void setLoginStatus( boolean isLogin ) {
         putBooleanPreference( context, FILENAME, KEY_LOGIN_STATUS, isLogin );
+    }
+
+    public void setDuePayment( boolean isDuePayment ) {
+        putBooleanPreference( context, FILENAME, KEY_ISDUEPAYMENT, isDuePayment );
+    }
+
+    public boolean isDuePayment() {
+        return getBooleanPreference(context, FILENAME, KEY_ISDUEPAYMENT);
     }
 
     public SignUpEntity getSignUpUser() {

@@ -71,6 +71,7 @@ public class PaymentFragment extends BaseFragment {
         if (CASE_KEY_PAYMENT != null) {
             entity = new Gson().fromJson(CASE_KEY_PAYMENT, MyCaseEntity.class);
         }
+
         duePaymentFragment = DuePaymentFragment.newInstance(entity);
         historyPaymentFragment = HistoryPaymentFragment.newInstance(entity);
     }
@@ -86,7 +87,20 @@ public class PaymentFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ReplaceListViewFragment(duePaymentFragment);
+        if (prefHelper.isDuePayment()) {
+            tvDuePayment.setTextColor(getResources().getColor(R.color.app_orange));
+            tvHistoryPayment.setTextColor(getResources().getColor(R.color.light_grey));
+            viewDue.setVisibility(View.VISIBLE);
+            viewHistory.setVisibility(View.INVISIBLE);
+            ReplaceListViewFragment(duePaymentFragment);
+        }
+        else{
+            tvDuePayment.setTextColor(getResources().getColor(R.color.light_grey));
+            tvHistoryPayment.setTextColor(getResources().getColor(R.color.app_orange));
+            viewHistory.setVisibility(View.VISIBLE);
+            viewDue.setVisibility(View.INVISIBLE);
+            ReplaceListViewFragment(historyPaymentFragment);
+        }
     }
 
     private void ReplaceListViewFragment(BaseFragment frag) {
@@ -110,7 +124,7 @@ public class PaymentFragment extends BaseFragment {
         titleBar.showFilterButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDockActivity().replaceDockableFragment(PaymentFilterFragment.newInstance(),"PaymentFilterFragment");
+                getDockActivity().replaceDockableFragment(PaymentFilterFragment.newInstance(), "PaymentFilterFragment");
             }
         });
     }

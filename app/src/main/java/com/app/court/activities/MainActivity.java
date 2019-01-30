@@ -1,10 +1,15 @@
 package com.app.court.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +26,7 @@ import com.app.court.fragments.ChatFragment;
 import com.app.court.fragments.HomeFragment;
 import com.app.court.fragments.LoginFragment;
 import com.app.court.fragments.NotificationsFragment;
+import com.app.court.fragments.RateLawyerFragment;
 import com.app.court.fragments.SideMenuFragment;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.AppConstants;
@@ -86,6 +92,8 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
     private ImageSetter imageSetter;
     private ArrayList<FilterEnt> collection = new ArrayList<>();
 
+    protected BroadcastReceiver broadcastReceiver;
+
     private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
         @Override
         public void openMenu() {
@@ -112,6 +120,9 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
 
         sideMenuType = SideMenuChooser.DRAWER.getValue();
         sideMenuDirection = SideMenuDirection.LEFT.getValue();
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         setFilterData();
 
@@ -162,9 +173,43 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
             }
         });
 
-        if (savedInstanceState == null)
-            initFragment();
+        //  if (savedInstanceState == null)
+        initFragment();
 
+        onNotificationReceived();
+
+    }
+
+
+    private void onNotificationReceived() {
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // checking for type intent filter
+                if (intent.getAction().equals(AppConstants.REGISTRATION_COMPLETE)) {
+                    System.out.println("registration complete");
+                    System.out.println(prefHelper.getFirebase_TOKEN());
+
+                } else if (intent.getAction().equals(AppConstants.PUSH_NOTIFICATION)) {
+                    Bundle bundle = intent.getExtras();
+                    if (bundle != null) {
+                        String Type = bundle.getString("action_type");
+                        final String actionId = bundle.getString("action_id");
+
+                        if (prefHelper.isLogin()) {
+                            if (Type != null && Type.equals(AppConstants.CaseAckowledge)) {
+                                getDockActivity().popBackStackTillEntry(0);
+                                replaceDockableFragment(RateLawyerFragment.newInstance(actionId), "RateLawyerFragment");
+                            }
+                        } else {
+                            replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
+                        }
+
+                    }
+                }
+            }
+
+        };
     }
 
     private void setFilterData() {
@@ -272,8 +317,15 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
             String Type = bundle.getString("action_type");
             final String actionId = bundle.getString("action_id");
 
-            if (Type != null && Type.equals(AppConstants.AddMessage)) {
-                replaceDockableFragment(ChatFragment.newInstance(actionId), "InboxChatFragment");
+            if (prefHelper.isLogin()) {
+                if (Type != null && Type.equals(AppConstants.AddMessage)) {
+                    replaceDockableFragment(ChatFragment.newInstance(actionId), "InboxChatFragment");
+                } else if (Type != null && Type.equals(AppConstants.CaseAckowledge)) {
+                    getDockActivity().popBackStackTillEntry(0);
+                    replaceDockableFragment(RateLawyerFragment.newInstance(actionId), "RateLawyerFragment");
+                }
+            } else {
+                replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
             }
         }
     }
@@ -685,5 +737,23 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(getDockActivity()).unregisterReceiver(broadcastReceiver);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getDockActivity()).registerReceiver(broadcastReceiver,
+                new IntentFilter(AppConstants.REGISTRATION_COMPLETE));
+
+        LocalBroadcastManager.getInstance(getDockActivity()).registerReceiver(broadcastReceiver,
+                new IntentFilter(AppConstants.PUSH_NOTIFICATION));
+
+
     }
 }

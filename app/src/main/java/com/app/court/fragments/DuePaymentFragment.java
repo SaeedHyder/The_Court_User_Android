@@ -91,13 +91,14 @@ public class DuePaymentFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        prefHelper.setDuePayment(true);
         mainFrame.setVisibility(View.GONE);
         getMyCase();
         searchingName();
         lvPayment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getDockActivity().replaceDockableFragment(PaymentDetailFragment.newInstance(entity, paymentEntity.get(position).getPaymentId()), "PaymentDetailFragment");
+                getDockActivity().replaceDockableFragment(PaymentDetailFragment.newInstance(entity, paymentEntity.get(position).getId()+"",paymentEntity.get(position)), "PaymentDetailFragment");
             }
         });
     }

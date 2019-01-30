@@ -63,11 +63,12 @@ public class TermsAndConditionFragment extends BaseFragment {
         titleBar.showBackButtonAsPerRequirement(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (comingFrom.equalsIgnoreCase(AppConstants.COMING_FROM_SIGNUP)){
+                getMainActivity().popFragment();
+              /*  if (comingFrom.equalsIgnoreCase(AppConstants.COMING_FROM_SIGNUP)){
                     getDockActivity().replaceDockableFragment(SignupFragment.newInstance(), "LoginFragment");
                 } else {
                     getMainActivity().popFragment();
-                }
+                }*/
             }
         });
         titleBar.setSubHeading(getString(R.string.terms_condition));
@@ -76,6 +77,7 @@ public class TermsAndConditionFragment extends BaseFragment {
     @OnClick(R.id.btn_i_agree)
     public void onViewClicked() {
         if (comingFrom.equalsIgnoreCase(AppConstants.COMING_FROM_SIGNUP)) {
+            getDockActivity().popBackStackTillEntry(1);
             getDockActivity().replaceDockableFragment(EnterCodeFragment.newInstance(AppConstants.COMING_FROM_SIGNUP), "EnterCodeFragment");
         } else {
             getMainActivity().popFragment();

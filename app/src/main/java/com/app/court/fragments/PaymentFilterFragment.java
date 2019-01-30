@@ -5,16 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.app.court.R;
 import com.app.court.fragments.abstracts.BaseFragment;
 import com.app.court.global.AppConstants;
-import com.app.court.ui.adapters.ArrayListAdapter;
 import com.app.court.ui.views.TitleBar;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,12 +23,14 @@ import butterknife.Unbinder;
 public class PaymentFilterFragment extends BaseFragment {
 
     @BindView(R.id.cb_latest_to_old)
-    CheckBox cbLatestToOld;
+    RadioButton cbLatestToOld;
     @BindView(R.id.cb_old_to_latest)
-    CheckBox cbOldToLatest;
+    RadioButton cbOldToLatest;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
     Unbinder unbinder;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
 
     public static PaymentFilterFragment newInstance() {
 
@@ -54,7 +54,7 @@ public class PaymentFilterFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         cbLatestToOld.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -63,13 +63,39 @@ public class PaymentFilterFragment extends BaseFragment {
                 prefHelper.setPaymentFilter(AppConstants.LATEST_TO_OLD);
             }
         });
-
         cbOldToLatest.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 prefHelper.setPaymentFilter(AppConstants.OLD_TO_LATEST);
             }
         });
+
+       /* cbLatestToOld.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((RadioButton) v).isChecked()) {
+                    cbLatestToOld.setChecked(true);
+                } else {
+                    cbLatestToOld.setChecked(false);
+                }
+                prefHelper.setPaymentFilter(AppConstants.LATEST_TO_OLD);
+            }
+        });
+
+        cbOldToLatest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((RadioButton) v).isChecked()) {
+                    cbOldToLatest.setChecked(true);
+                } else {
+                    cbOldToLatest.setChecked(false);
+                }
+                prefHelper.setPaymentFilter(AppConstants.OLD_TO_LATEST);
+            }
+        });
+
+        */
+
     }
 
     @Override
@@ -81,8 +107,7 @@ public class PaymentFilterFragment extends BaseFragment {
         titleBar.showResetButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cbLatestToOld.setChecked(true);
-                cbOldToLatest.setChecked(false);
+                radioGroup.clearCheck();
                 prefHelper.setPaymentFilter(AppConstants.LATEST_TO_OLD);
             }
         });
@@ -92,4 +117,6 @@ public class PaymentFilterFragment extends BaseFragment {
     public void onViewClicked() {
         getMainActivity().popFragment();
     }
+
+
 }

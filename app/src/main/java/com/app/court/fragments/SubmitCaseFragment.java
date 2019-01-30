@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +50,12 @@ import com.app.court.ui.views.TitleBar;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
 import com.google.gson.Gson;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.yovenny.videocompress.MediaController;
 
 import java.io.ByteArrayOutputStream;
@@ -60,6 +67,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -219,8 +227,9 @@ public class SubmitCaseFragment extends BaseFragment implements MainActivity.Ima
                     UIHelper.showShortToastInCenter(getDockActivity(), "You can't select more than 5 attachments");
                     return;
                 }
-                if (Utils.doubleClickCheck())
-                    SubmitCaseFragmentPermissionsDispatcher.getStoragePermissionWithPermissionCheck(SubmitCaseFragment.this);
+                //  if (Utils.doubleClickCheck())
+                //    SubmitCaseFragmentPermissionsDispatcher.getStoragePermissionWithPermissionCheck(SubmitCaseFragment.this);
+                requestCameraPermission();
                 break;
             case R.id.btn_submit_case:
                 if (validate())
@@ -257,48 +266,39 @@ public class SubmitCaseFragment extends BaseFragment implements MainActivity.Ima
 
     private void callService() {
 
-
         ArrayList<MultipartBody.Part> files = new ArrayList<>();
         ArrayList<MultipartBody.Part> thumbnails = new ArrayList<>();
         ArrayList<MultipartBody.Part> type = new ArrayList<>();
+
 
         if (fileStringList != null) {
             int index = 0;
             for (FileType fileObj : fileStringList) {
 
-                //For file
-                files.add(MultipartBody.Part.createFormData("file",
-                        fileObj.getFile().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
-                                fileObj.getFile())));
-                fileCollection.add(files.get(index));
+                if (fileObj.getFile() != null) {
+                    files.add(MultipartBody.Part.createFormData("file[]",
+                            fileObj.getFile().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
+                                    fileObj.getFile())));
+                }
 
-
-                //For thumbnail
-                if (fileObj.getThumbnailfileUrl() != null)
-//                    File thumbnailFile = new File("file:///" + fileObj.getFileThumbnail());
-                    thumbnails.add(MultipartBody.Part.createFormData("thumb_nail",
+                if (fileObj.getThumbnailfileUrl() != null) {
+                    thumbnails.add(MultipartBody.Part.createFormData("thumb_nail[]",
                             fileObj.getThumbnailfileUrl().getName(), RequestBody.create(MediaType.parse("multipart/form-data"),
                                     fileObj.getThumbnailfileUrl())));
-                fileCollection.add(thumbnails.get(index));
+                }
 
-                //For type
-                type.add(MultipartBody.Part.createFormData("type", fileExtensionList.get(index)));
-                fileCollection.add(type.get(index));
+                type.add(MultipartBody.Part.createFormData("type[]", fileStringList.get(index).getType()));
+               // type.add(MultipartBody.Part.createFormData("type[]", fileExtensionList.get(index)));
                 index++;
             }
-
         }
 
-        documents.put("documents[]", fileCollection);
+            RequestBody lawyer_id = RequestBody.create(MediaType.parse("text/plain"), entity.getId() + "");
+            RequestBody subject = RequestBody.create(MediaType.parse("text/plain"), edtSubject.getText().toString() + "");
+            RequestBody detail = RequestBody.create(MediaType.parse("text/plain"), edtWriteHere.getText().toString() + "");
 
-        RequestBody _lawyerId = RequestBody.create(MediaType.parse("text/plain"), entity.getId() + "");
-        RequestBody _subject = RequestBody.create(MediaType.parse("text/plain"), edtSubject.getText().toString() + "");
-        RequestBody _detail = RequestBody.create(MediaType.parse("text/plain"), edtWriteHere.getText().toString() + "");
-        //RequestBody _doc_type = RequestBody.create(MediaType.parse("text/plain"), android.text.TextUtils.join(",", fileExtensionList));
+            serviceHelper.enqueueCall(webService.submitCase(lawyer_id, subject, detail, files, thumbnails, type), WebServiceConstants.SUBMIT_CASE);
 
-        serviceHelper.enqueueCall(webService.submitCase(
-                _lawyerId, _subject, _detail, documents)
-                , WebServiceConstants.SUBMIT_CASE);
     }
 
     private ArrayList<DocumentArray> getDocumentArray(ArrayList<FileType> fileStringList) {
@@ -316,9 +316,8 @@ public class SubmitCaseFragment extends BaseFragment implements MainActivity.Ima
         super.ResponseSuccess(result, Tag);
         switch (Tag) {
             case WebServiceConstants.SUBMIT_CASE:
-                //UIHelper.showShortToastInCenter(getDockActivity(), getTag());
-                getDockActivity().popBackStackTillEntry(1);
-                //getDockActivity().replaceDockableFragment(MyCaseFragment.newInstance(), "MyCaseFragment");
+                UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.submit_case_successfully));
+                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
                 break;
         }
     }
@@ -460,19 +459,23 @@ public class SubmitCaseFragment extends BaseFragment implements MainActivity.Ima
     }
 
     private boolean isValidate() {
-        if (!(checkEmpty(edtSubject) || checkEmpty(edtWriteHere))) {
-            if (fileStringList.size() > 0)
-                return true;
-            else
-                UIHelper.showShortToastInCenter(getDockActivity(), getResources().getString(R.string.upload_doc));
+
+        if (edtSubject.getText().toString() == null || edtSubject.getText().toString().trim().equals("")) {
+            UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.write_subject));
+            return false;
+        } else if (edtWriteHere.getText().toString() == null || edtWriteHere.getText().toString().trim().equals("")) {
+            UIHelper.showShortToastInCenter(getDockActivity(), getString(R.string.write_description));
+            return false;
+        } else if (fileStringList.size() <= 0) {
+            UIHelper.showShortToastInCenter(getDockActivity(), getResources().getString(R.string.upload_doc));
+            return false;
+        }else{
+            return true;
         }
-        fillAllFieldsError();
-        return false;
+
     }
 
-    protected boolean checkEmpty(EditText editText) {
-        return editText.getText().toString().isEmpty();
-    }
+
 
     protected void fillAllFieldsError() {
         UIHelper.showLongToastInCenter(getActivity(), "Please fill all fields");
@@ -687,5 +690,60 @@ public class SubmitCaseFragment extends BaseFragment implements MainActivity.Ima
 //            e.printStackTrace();
 //        }
         return f;
+    }
+
+    private void requestCameraPermission() {
+        Dexter.withActivity(getDockActivity())
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        if (report.areAllPermissionsGranted()) {
+                            // SubmitCaseFragmentPermissionsDispatcher.getStoragePermissionWithPermissionCheck(ChatFragment.this);
+                            CameraOptionsSheetDialog();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            requestCameraPermission();
+
+                        } else if (report.getDeniedPermissionResponses().size() > 0) {
+                            requestCameraPermission();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<com.karumi.dexter.listener.PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        UIHelper.showShortToastInCenter(getDockActivity(), "Grant Camera and Storage Permission to processed");
+                        openSettings();
+                    }
+                })
+
+                .onSameThread()
+                .check();
+
+
+    }
+
+    private void openSettings() {
+
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        Uri uri = Uri.fromParts("package", getDockActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 }

@@ -43,4 +43,8 @@ public class WebServiceConstants {
     public static final String SEND_MSG = "SEND_MSG";
     public static final String UPDATEDEVICETOKEN = "UPDATEDEVICETOKEN";
     public static final String MSGPUSH = "MSGPUSH";
+    public static final String PUSHONOFF = "PUSHONOFF";
+    public static final String CaseDetail = "CaseDetail";
+    public static final String RateLawyer = "RateLawyer";
+    public static final String WITHDRAWCASE = "WITHDRAWCASE";
 }

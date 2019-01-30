@@ -56,4 +56,5 @@ public class AppConstants {
     public static String LATEST_TO_OLD = "latest_to_old";
     public static String OLD_TO_LATEST = "old_to_latest";
     public static String AddMessage = "add_message";
+    public static String CaseAckowledge = "case_acknowledge";
 }

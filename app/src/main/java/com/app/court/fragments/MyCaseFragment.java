@@ -58,7 +58,7 @@ public class MyCaseFragment extends BaseFragment implements CaseItemClick {
 
     public static MyCaseFragment newInstance() {
         Bundle args = new Bundle();
-
+        SELECTED_FILTER_ARRAY="";
         MyCaseFragment fragment = new MyCaseFragment();
         fragment.setArguments(args);
         return fragment;
@@ -104,6 +104,7 @@ public class MyCaseFragment extends BaseFragment implements CaseItemClick {
         titleBar.showFilterButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getDockActivity().popBackStackTillEntry(1);
                 getDockActivity().replaceDockableFragment(FilterFragment.newInstance(), "FilterFragment");
             }
         });
@@ -146,12 +147,13 @@ public class MyCaseFragment extends BaseFragment implements CaseItemClick {
         ArrayList<MyCaseEntity> arrayList = new ArrayList<>();
 
         String UserName = "";
-        for (MyCaseEntity item : userCollection) {
-            UserName = item.getSubject();
-            if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
-                arrayList.add(item);
+        if (userCollection != null)
+            for (MyCaseEntity item : userCollection) {
+                UserName = item.getSubject();
+                if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE).matcher(UserName).find()) {
+                    arrayList.add(item);
+                }
             }
-        }
         return arrayList;
 
     }
@@ -188,13 +190,9 @@ public class MyCaseFragment extends BaseFragment implements CaseItemClick {
         adapter.clearList();
         lvMyCase.setAdapter(adapter);
         adapter.addAll(lawyerCollection);
-        adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+
 
     @OnClick(R.id.iv_search)
     public void onViewClicked() {

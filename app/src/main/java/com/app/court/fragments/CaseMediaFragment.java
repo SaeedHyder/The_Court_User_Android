@@ -110,20 +110,21 @@ public class CaseMediaFragment extends BaseFragment {
      /*   imageLoader.displayImage("drawable://" + R.drawable.thumbnail, ivDocuments);
         imageLoader.displayImage("drawable://" + R.drawable.thumbnail, ivVideos);*/
 
+        images = new ArrayList<>();
+        video = new ArrayList<>();
+        docs = new ArrayList<>();
+
         if (entity.getDocuments().size() > 0) {
 
             for (int i = 0; i < entity.getDocuments().size(); i++) {
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.PHOTO)) {
-                    images = new ArrayList<>();
                     imageLoader.displayImage(entity.getDocuments().get(i).getImageUrl(), ivImage);
-                    images.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
+                    images.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getFile(), AppConstants.PHOTO, entity.getCreatedAt()));
                 }
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.VIDEO)) {
-                    video = new ArrayList<>();
                     video.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
                 }
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.FILE)) {
-                    docs = new ArrayList<>();
                     docs.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
                 }
             }

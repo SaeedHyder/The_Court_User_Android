@@ -116,6 +116,12 @@ public class CaseLibraryFragment extends BaseFragment {
             ivMessages.setImageResource(R.drawable.disable);
         }
 
+        if (entity.getStatus().equals("3") || entity.getStatus().equals("4")) {
+            ivMessages.setImageResource(R.drawable.disable);
+        } else if (entity.getStatus().equals("5") || entity.getStatus().equals("7")) {
+            ivMessages.setImageResource(R.drawable.messages);
+        }
+
         imageLoader = ImageLoader.getInstance();
         llUpperTabBar.setVisibility(View.VISIBLE);
         lvLibrary.setVisibility(View.GONE);
@@ -129,23 +135,26 @@ public class CaseLibraryFragment extends BaseFragment {
 
         ivVideos.setImageResource(R.drawable.video_placeholder);
         ivDocuments.setImageResource(R.drawable.pdf_image);
-        if(entity.getDocuments().size()>0){
-            imageLoader.displayImage(entity.getDocuments().get(0).getThumbUrl(), ivImage);
+        if (entity.getDocuments().size() > 0) {
+            images = new ArrayList<>();
+            video = new ArrayList<>();
+            docs = new ArrayList<>();
 
             for (int i = 0; i < entity.getDocuments().size(); i++) {
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.PHOTO)) {
-                    images = new ArrayList<>();
+                    imageLoader.displayImage(entity.getDocuments().get(i).getThumbUrl(), ivImage);
                     images.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
+
                 }
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.VIDEO)) {
-                    video = new ArrayList<>();
                     video.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
                 }
                 if (entity.getDocuments().get(i).getType().equals(AppConstants.FILE)) {
-                    docs = new ArrayList<>();
                     docs.add(new MediaEntity(entity.getDocuments().get(i).getImageUrl(), entity.getDocuments().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
                 }
-            }}
+            }
+
+        }
     }
 
     @Override
@@ -162,7 +171,6 @@ public class CaseLibraryFragment extends BaseFragment {
     }
 
 
-
     @OnClick({R.id.iv_description, R.id.iv_messages, R.id.ll_library, R.id.iv_image, R.id.iv_videos, R.id.iv_documents})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -174,8 +182,10 @@ public class CaseLibraryFragment extends BaseFragment {
                 if (entity.getAllowMessage() == 1) {
                     getDockActivity().popFragment();
                     getDockActivity().replaceDockableFragment(CaseMessagesFragment.newInstance(entity), "CaseMessagesFragment");
+                } else if (entity.getStatus().equals("3") || entity.getStatus().equals("4")) {
+
                 } else {
-                    UIHelper.showShortToastInCenter(getDockActivity(), "Please submit amount to proceed.");
+                    UIHelper.showShortToastInCenter(getDockActivity(), getDockActivity().getResources().getString(R.string.please_enter_amont));
                 }
                 break;
             case R.id.ll_library:

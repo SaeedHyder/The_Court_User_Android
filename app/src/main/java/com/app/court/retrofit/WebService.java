@@ -47,10 +47,11 @@ public interface WebService {
     @FormUrlEncoded
     @POST("UserRegister")
     Call<ResponseWrapper<SignUpEntity>> signup(
-            @Field("user_name") String user_name,
+            @Field("full_name") String full_name,
             @Field("email") String email,
             @Field("phone_no") String phone_no,
             @Field("password") String password,
+            @Field("password_confirmation") String password_confirmation,
             @Field("device_type") String device_type,
             @Field("device_token") String device_token,
             @Field("profile_image") String profile_image
@@ -184,15 +185,7 @@ public interface WebService {
             @Query("name") String name
     );
 
-    @Multipart
-    @POST("CaseRegister")
-    Call<ResponseWrapper> submitCase(
-            @Part("lawyer_id") RequestBody lawyer_id,
-            @Part("subject") RequestBody subject,
-            @Part("detail") RequestBody detail,
-            @PartMap Map<String, ArrayList<MultipartBody.Part>> file
 
-    );
 
 /*    @PartMap Map<String, RequestBody> documents,
     @PartMap Map<String, RequestBody> thumbnail,
@@ -229,7 +222,6 @@ public interface WebService {
     Call<ResponseWrapper> completeCase(
             @Field("case_id") int case_id
     );
-
 
 
     @FormUrlEncoded
@@ -278,26 +270,63 @@ public interface WebService {
     );
 
     @Multipart
-    @POST("addMessage")
+    @POST("addAndroidMessage")
     Call<ResponseWrapper<ArrayList<CaseMessagesEntity>>> sendMsg(
             @Part("case_id") RequestBody case_id,
             @Part("receiver_id") RequestBody receiver_id,
             @Part("message") RequestBody message,
-            @Part ArrayList<MultipartBody.Part> documents,
-            @Part ArrayList<MultipartBody.Part> document
+            @Part ArrayList<MultipartBody.Part> file,
+            @Part ArrayList<MultipartBody.Part> thumb_nail,
+            @Part ArrayList<MultipartBody.Part> type
     );
 
     @Multipart
-    @POST("addMessage")
-    Call<ResponseWrapper<ArrayList<CaseMessagesEntity>>> sendMsg(
-            @Part("case_id") RequestBody case_id,
-            @Part("receiver_id") RequestBody receiver_id,
-            @Part("message") RequestBody message,
-            @Part("documents[]") ArrayList<ArrayList<ArrayList<MultipartBody.Part>>> documents
+    @POST("CaseRegister")
+    Call<ResponseWrapper> submitCase(
+            @Part("lawyer_id") RequestBody lawyer_id,
+            @Part("subject") RequestBody subject,
+            @Part("detail") RequestBody detail,
+            @PartMap Map<String, ArrayList<MultipartBody.Part>> file
+
     );
+
+    @Multipart
+    @POST("androidCaseRegister")
+    Call<ResponseWrapper> submitCase(
+            @Part("lawyer_id") RequestBody lawyer_id,
+            @Part("subject") RequestBody subject,
+            @Part("detail") RequestBody detail,
+            @Part ArrayList<MultipartBody.Part> file,
+            @Part ArrayList<MultipartBody.Part> thumb_nail,
+            @Part ArrayList<MultipartBody.Part> type
+
+    );
+
 
     @GET("getMessageThread")
     Call<ResponseWrapper<MessagePushEnt>> getMsgPushData(
             @Query("thread_id") String thread_id
     );
+
+    @GET("getCase")
+    Call<ResponseWrapper<MyCaseEntity>> getCaseDetail(
+            @Query("case_id") String case_id
+    );
+
+    @FormUrlEncoded
+    @POST("LawyerRate")
+    Call<ResponseWrapper> lawyerRate(
+            @Field("lawyer_id") String lawyer_id,
+            @Field("case_id") String case_id,
+            @Field("rate") int rate
+    );
+
+    @FormUrlEncoded
+    @POST("CaseWithdraw")
+    Call<ResponseWrapper> caseWithdraw(
+            @Field("case_id") int case_id
+
+    );
+
+
 }

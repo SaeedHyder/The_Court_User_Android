@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.app.court.R;
 import com.app.court.activities.DockActivity;
 import com.app.court.entities.CaseMessagesEntity;
+import com.app.court.entities.DocumentEntity;
 import com.app.court.entities.MediaEntity;
 import com.app.court.fragments.ChatLibraryFragment;
 import com.app.court.global.AppConstants;
@@ -32,6 +33,7 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
     private ArrayList<MediaEntity> video;
     private ArrayList<MediaEntity> docs;
     ImageLoader imageLoader;
+    private boolean isImage;
 
     public BinderChat(DockActivity dockActivity, BasePreferenceHelper prefHelper) {
         super(R.layout.item_chat);
@@ -48,7 +50,7 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
     public void bindView(final CaseMessagesEntity entity, final int position, Object holder, Context context) {
 
         imageLoader = ImageLoader.getInstance();
-        ViewHolder viewHolder = (ViewHolder) holder;
+        final ViewHolder viewHolder = (ViewHolder) holder;
 
         if (entity != null) {
 
@@ -70,23 +72,38 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
                     viewHolder.rlRightImage.setVisibility(View.VISIBLE);
                     viewHolder.userCount.setText(entity.getDocumentDetail().size() + "");
 
-                    for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
-                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.PHOTO)) {
-                            imageLoader.displayImage(entity.getDocumentDetail().get(0).getThumbUrl(), viewHolder.ivUser);
-                            images = new ArrayList<>();
-                            images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
-                        }
-                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.VIDEO)) {
-                            imageLoader.displayImage("drawable://" + R.drawable.video_placeholder, viewHolder.ivUser);
-                            video = new ArrayList<>();
-                            video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
-                        }
-                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.FILE)) {
-                            imageLoader.displayImage("drawable://" + R.drawable.pdf_image, viewHolder.ivUser);
-                            docs = new ArrayList<>();
-                            docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
+                    isImage=false;
+                    for (DocumentEntity item : entity.getDocumentDetail()) {
+                        if (item.getType().equals(AppConstants.PHOTO)) {
+                            viewHolder.ivUser.setScaleType(ImageView.ScaleType.FIT_XY);
+                            imageLoader.displayImage(item.getImageUrl(), viewHolder.ivUser);
+                            isImage = true;
                         }
                     }
+                    if (!isImage) {
+                        if (entity.getDocumentDetail().get(0).getType().equals(AppConstants.VIDEO)) {
+                            viewHolder.ivUser.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            viewHolder.ivUser.setImageResource(R.drawable.video_placeholder);
+                        } else if (entity.getDocumentDetail().get(0).getType().equals(AppConstants.FILE)) {
+                            viewHolder.ivUser.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            viewHolder.ivUser.setImageResource(R.drawable.pdf_image);
+                        }
+                    }
+
+                    /*for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.PHOTO)) {
+                            imageLoader.displayImage(entity.getDocumentDetail().get(0).getThumbUrl(), viewHolder.ivUser);
+                            //         images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
+                        }
+                        else if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.VIDEO)) {
+                            imageLoader.displayImage("drawable://" + R.drawable.video_placeholder, viewHolder.ivUser);
+                            //        video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
+                        }
+                       else if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.FILE)) {
+                            imageLoader.displayImage("drawable://" + R.drawable.pdf_image, viewHolder.ivUser);
+                            //      docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
+                        }
+                    }*/
 
                 } else {
 
@@ -112,23 +129,39 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
                     viewHolder.rlLeftImage.setVisibility(View.VISIBLE);
                     viewHolder.lawyerCount.setText(entity.getDocumentDetail().size() + "");
 
-                    for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
+
+                    isImage=false;
+                    for (DocumentEntity item : entity.getDocumentDetail()) {
+                        if (item.getType().equals(AppConstants.PHOTO)) {
+                            viewHolder.ivUser.setScaleType(ImageView.ScaleType.FIT_XY);
+                            imageLoader.displayImage(item.getImageUrl(), viewHolder.ivLawyer);
+                            isImage = true;
+                        }
+                    }
+                    if (!isImage) {
+                        if (entity.getDocumentDetail().get(0).getType().equals(AppConstants.VIDEO)) {
+                            viewHolder.ivLawyer.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            viewHolder.ivLawyer.setImageResource(R.drawable.video_placeholder);
+                        } else if (entity.getDocumentDetail().get(0).getType().equals(AppConstants.FILE)) {
+                            viewHolder.ivLawyer.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            viewHolder.ivLawyer.setImageResource(R.drawable.pdf_image);
+                        }
+                    }
+
+                   /* for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
                         if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.PHOTO)) {
                             imageLoader.displayImage(entity.getDocumentDetail().get(0).getThumbUrl(), viewHolder.ivLawyer);
-                            images = new ArrayList<>();
-                            images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
+                            //   images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getThumbNail(), AppConstants.PHOTO, entity.getCreatedAt()));
                         }
                         if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.VIDEO)) {
                             imageLoader.displayImage("drawable://" + R.drawable.video_placeholder, viewHolder.ivUser);
-                            video = new ArrayList<>();
-                            video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
+                            //  video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
                         }
                         if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.FILE)) {
                             imageLoader.displayImage("drawable://" + R.drawable.pdf_image, viewHolder.ivUser);
-                            docs = new ArrayList<>();
-                            docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
+                            //  docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
                         }
-                    }
+                    }*/
                 } else {
 
                     viewHolder.rlLeftImage.setVisibility(View.GONE);
@@ -139,6 +172,26 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
             viewHolder.ivUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    images = new ArrayList<>();
+                    video = new ArrayList<>();
+                    docs = new ArrayList<>();
+
+                    for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.PHOTO)) {
+                            //imageLoader.displayImage(entity.getDocumentDetail().get(0).getThumbUrl(), viewHolder.ivUser);
+                            images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.PHOTO, entity.getCreatedAt()));
+                        }
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.VIDEO)) {
+                            //   imageLoader.displayImage("drawable://" + R.drawable.video_placeholder, viewHolder.ivUser);
+                            video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
+                        }
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.FILE)) {
+                            //  imageLoader.displayImage("drawable://" + R.drawable.pdf_image, viewHolder.ivUser);
+                            docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
+                        }
+                    }
+
                     dockActivity.replaceDockableFragment(ChatLibraryFragment.newInstance(images, video, docs), "DisplayMediaFragment");
 
                 }
@@ -147,6 +200,26 @@ public class BinderChat extends RecyclerViewBinder<CaseMessagesEntity> {
             viewHolder.ivLawyer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    images = new ArrayList<>();
+                    video = new ArrayList<>();
+                    docs = new ArrayList<>();
+
+                    for (int i = 0; i < entity.getDocumentDetail().size(); i++) {
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.PHOTO)) {
+                            //   imageLoader.displayImage(entity.getDocumentDetail().get(0).getThumbUrl(), viewHolder.ivLawyer);
+                            images.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.PHOTO, entity.getCreatedAt()));
+                        }
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.VIDEO)) {
+                            //  imageLoader.displayImage("drawable://" + R.drawable.video_placeholder, viewHolder.ivUser);
+                            video.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.VIDEO, entity.getCreatedAt()));
+                        }
+                        if (entity.getDocumentDetail().get(i).getType().equals(AppConstants.FILE)) {
+                            //    imageLoader.displayImage("drawable://" + R.drawable.pdf_image, viewHolder.ivUser);
+                            docs.add(new MediaEntity(entity.getDocumentDetail().get(i).getImageUrl(), entity.getDocumentDetail().get(i).getFile(), AppConstants.DOCS, entity.getCreatedAt()));
+                        }
+                    }
+
                     dockActivity.replaceDockableFragment(ChatLibraryFragment.newInstance(images, video, docs), "DisplayMediaFragment");
 
                 }

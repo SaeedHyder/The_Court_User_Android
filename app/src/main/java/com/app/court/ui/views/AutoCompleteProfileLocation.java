@@ -26,20 +26,20 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 
-public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAutoCompleteTextView {
+public class AutoCompleteProfileLocation extends android.support.v7.widget.AppCompatAutoCompleteTextView {
 
     private Drawable mCloseIcon;
     private GoogleApiClient mGoogleApiClient;
     private AutoCompleteAdapter mAutoCompleteAdapter;
-    private AutoCompleteLocationListener mAutoCompleteLocationListener;
+    private com.app.court.ui.views.AutoCompleteLocation.AutoCompleteLocationListener mAutoCompleteLocationListener;
 
-    public interface AutoCompleteLocationListener {
+    public interface AutoCompleteLocation {
         void onTextClear();
 
         void onItemSelected(Place selectedPlace);
     }
 
-    public AutoCompleteLocation(Context context, AttributeSet attrs) {
+    public AutoCompleteProfileLocation(Context context, AttributeSet attrs) {
         super(context, attrs);
         Resources resources = context.getResources();
         TypedArray typedArray =
@@ -51,13 +51,13 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
         }
         String hintText = typedArray.getString(R.styleable.AutoCompleteLocation_hint_text);
         if (hintText == null) {
-            hintText = resources.getString(R.string.select_location);
+            hintText = resources.getString(R.string.address);
         }
         int hintTextColor = typedArray.getColor(R.styleable.AutoCompleteLocation_hint_text_color,
-                resources.getColor(R.color.black));
+                resources.getColor(R.color.app_dark_gray));
         int textColor = typedArray.getColor(R.styleable.AutoCompleteLocation_text_color,
                 resources.getColor(R.color.light_grey));
-        int padding = resources.getDimensionPixelSize(R.dimen.x10);
+       int padding = resources.getDimensionPixelSize(R.dimen.x10);
         typedArray.recycle();
 
         setBackground(background);
@@ -100,12 +100,12 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
             this.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         } else {
             this.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    AutoCompleteLocation.this.getText().toString().equals("") ? null : mCloseIcon, null);
+                    com.app.court.ui.views.AutoCompleteProfileLocation.this.getText().toString().equals("") ? null : mCloseIcon, null);
         }
     }
 
     public void setAutoCompleteTextListener(
-            AutoCompleteLocationListener autoCompleteLocationListener) {
+            com.app.court.ui.views.AutoCompleteLocation.AutoCompleteLocationListener autoCompleteLocationListener) {
         mAutoCompleteLocationListener = autoCompleteLocationListener;
     }
 
@@ -116,8 +116,8 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            AutoCompleteLocation.this.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    AutoCompleteLocation.this.getText().toString().equals("") ? null : mCloseIcon, null);
+            com.app.court.ui.views.AutoCompleteProfileLocation.this.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                    com.app.court.ui.views.AutoCompleteProfileLocation.this.getText().toString().equals("") ? null : mCloseIcon, null);
             if (mAutoCompleteLocationListener != null) {
                 mAutoCompleteLocationListener.onTextClear();
             }
@@ -132,11 +132,11 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getX()
-                    > AutoCompleteLocation.this.getWidth()
-                    - AutoCompleteLocation.this.getPaddingRight()
+                    > com.app.court.ui.views.AutoCompleteProfileLocation.this.getWidth()
+                    - com.app.court.ui.views.AutoCompleteProfileLocation.this.getPaddingRight()
                     - mCloseIcon.getIntrinsicWidth()) {
-                AutoCompleteLocation.this.setText("");
-                AutoCompleteLocation.this.setCompoundDrawables(null, null, null, null);
+                com.app.court.ui.views.AutoCompleteProfileLocation.this.setText("");
+                com.app.court.ui.views.AutoCompleteProfileLocation.this.setCompoundDrawables(null, null, null, null);
             }
             return false;
         }
@@ -146,7 +146,7 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    UIHelper.hideSoftKeyboard(AutoCompleteLocation.this.getContext(), AutoCompleteLocation.this);
+                    UIHelper.hideSoftKeyboard(com.app.court.ui.views.AutoCompleteProfileLocation.this.getContext(), com.app.court.ui.views.AutoCompleteProfileLocation.this);
                     final AutocompletePrediction item = mAutoCompleteAdapter.getItem(position);
                     if (item != null) {
                         final String placeId = item.getPlaceId();
@@ -180,4 +180,5 @@ public class AutoCompleteLocation extends android.support.v7.widget.AppCompatAut
                     places.release();
                 }
             };
+
 }

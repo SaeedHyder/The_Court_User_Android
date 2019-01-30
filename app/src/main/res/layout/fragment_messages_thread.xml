@@ -25,7 +25,6 @@
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:inputType="textNoSuggestions"
-            android:maxLength="10"
             android:maxLines="1"
             android:textColor="@color/light_grey"
             android:textColorHint="@color/light_grey"
